@@ -16,7 +16,7 @@ public class FrontPage implements ActionListener {
         button2 = new JButton("Tutorial");
         title = new JLabel("Chimpanzee Game");
 
-        button1.setBounds(30,150,200,40);
+        button1.setBounds(300,150,200,40);
         button1.setFocusable(false);
         button1.addActionListener(this);
 
