@@ -44,6 +44,7 @@ public class GamePage implements ActionListener {
     }
 
     public void InitializeGrid() {
+        grid = new int[SIZE][SIZE];
 
     }
 }
