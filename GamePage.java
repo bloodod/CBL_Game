@@ -9,6 +9,9 @@ public class GamePage implements ActionListener {
     JLabel label;
     JButton backButton;
 
+    static final int SIZE = 10;
+    int[][] grid;
+
     GamePage() {
 
         frame = new JFrame("Game");
@@ -37,6 +40,10 @@ public class GamePage implements ActionListener {
             frame.dispose();
             FrontPage frontPage = new FrontPage();
         }
+
+    }
+
+    public void InitializeGrid() {
 
     }
 }
