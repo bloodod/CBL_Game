@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class GamePage implements ActionListener {
 
@@ -11,6 +12,7 @@ public class GamePage implements ActionListener {
     JLabel label;
     JButton backButton;
     JButton[][] gridButtons;
+    JPanel gridPanel;
 
     static final int SIZE = 5;
     int numberAmount = 10;
@@ -50,6 +52,7 @@ public class GamePage implements ActionListener {
     public void InitializeGrid() {
         ArrayList<Integer> numbers = new ArrayList<>();
 
+        //Creating numbers and blanks for on the grid
         for (int i = 0; i < numberAmount; i++) {
             numbers.add(i);
         }
@@ -57,6 +60,31 @@ public class GamePage implements ActionListener {
         for (int i = 0; i < SIZE * SIZE - numberAmount; i++) {
             numbers.add(null);
         }
+
+        //List gets shuffled for random positions on the grid
+        Collections.shuffle(numbers);
+
+        int index = 0;
+
+        //Going through the whole grid
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (index < numbers.size()) {
+                    //Putting the number on the button
+                    if (numbers.get(index) != null) {
+                        gridButtons[i][j] = new JButton(String.valueOf(numbers.get(index)));
+                    } else {        //Empty if not a number
+                        gridButtons [i][j] = new JButton("");
+                    }
+                    gridButtons[i][j].setFocusable(false);
+                    gridButtons[i][j].addActionListener(this);
+                    gridPanel.add(gridButtons[i][j]);
+                    index++;
+                }
+            }
+        }
+
+        gridPanel.setBounds(100, 150, 600, 300);
 
 
     }
