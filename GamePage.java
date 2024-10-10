@@ -3,14 +3,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+import java.util.ArrayList;
+
 public class GamePage implements ActionListener {
 
     JFrame frame;
     JLabel label;
     JButton backButton;
+    JButton[][] gridButtons;
 
     static final int SIZE = 10;
-    int[][] grid;
+    int numberAmount = 10;
+    
 
     GamePage() {
 
@@ -44,7 +48,7 @@ public class GamePage implements ActionListener {
     }
 
     public void InitializeGrid() {
-        grid = new int[SIZE][SIZE];
+
 
     }
 }
