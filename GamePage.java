@@ -23,6 +23,7 @@ public class GamePage implements ActionListener {
         frame = new JFrame("Game");
         label = new JLabel("Game Page");
         backButton = new JButton("Exit this Game");
+        gridPanel = new JPanel();
 
         label.setBounds(350,50,200,50);
         label.setFont(new Font(null,Font.PLAIN,25));
@@ -31,8 +32,16 @@ public class GamePage implements ActionListener {
         backButton.setFocusable(false);
         backButton.addActionListener(this);
 
-        frame.add(label);
-        frame.add(backButton);
+        gridPanel.setLayout(new GridLayout(SIZE, SIZE, 5, 5));
+        gridButtons = new JButton[SIZE][SIZE];
+
+        InitializeGrid();
+
+        frame.setLayout(new BorderLayout());
+        frame.add(label, BorderLayout.NORTH);
+        frame.add(gridPanel, BorderLayout.CENTER);
+        frame.add(backButton, BorderLayout.SOUTH);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800,600);
         frame.setLayout(null);
@@ -53,11 +62,11 @@ public class GamePage implements ActionListener {
         ArrayList<Integer> numbers = new ArrayList<>();
 
         //Creating numbers and blanks for on the grid
-        for (int i = 0; i < numberAmount; i++) {
+        for (int i = 1; i < numberAmount; i++) {
             numbers.add(i);
         }
 
-        for (int i = 0; i < SIZE * SIZE - numberAmount; i++) {
+        for (int i = 0; i < SIZE * SIZE - numberAmount + 1; i++) {
             numbers.add(null);
         }
 
