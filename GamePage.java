@@ -12,7 +12,7 @@ public class GamePage implements ActionListener {
     JButton backButton;
     JButton[][] gridButtons;
 
-    static final int SIZE = 10;
+    static final int SIZE = 5;
     int numberAmount = 10;
     
 
@@ -48,6 +48,15 @@ public class GamePage implements ActionListener {
     }
 
     public void InitializeGrid() {
+        ArrayList<Integer> numbers = new ArrayList<>();
+
+        for (int i = 0; i < numberAmount; i++) {
+            numbers.add(i);
+        }
+
+        for (int i = 0; i < SIZE * SIZE - numberAmount; i++) {
+            numbers.add(null);
+        }
 
 
     }
