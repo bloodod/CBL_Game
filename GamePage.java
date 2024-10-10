@@ -16,6 +16,8 @@ public class GamePage implements ActionListener {
 
     static final int SIZE = 5;
     int numberAmount = 10;
+    int convertSeconds = 1000; //from milliseconds to seconds
+    int maxTime = 3 * convertSeconds;
     
 
     GamePage() {
