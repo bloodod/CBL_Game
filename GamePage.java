@@ -18,6 +18,10 @@ public class GamePage implements ActionListener {
     int numberAmount = 10;
     int convertSeconds = 1000; //from milliseconds to seconds
     int maxTime = 3 * convertSeconds;
+
+    int currentNumber = 1;
+    String buttonNumber;
+    int buttonNumberStringToInt;
     
 
     GamePage() {
@@ -56,6 +60,18 @@ public class GamePage implements ActionListener {
         if(e.getSource() == backButton) {
             frame.dispose();
             FrontPage frontPage = new FrontPage();
+        }
+
+        for (int i = 0; i < SIZE; i++ ) {
+            for (int j = 0; j < SIZE; j++) {
+                buttonNumber = gridButtons[i][j].getText();
+                buttonNumberStringToInt = Integer.parseInt(buttonNumber);
+                if (buttonNumberStringToInt == currentNumber) {
+                    currentNumber++;
+                } else {
+                    JOptionPane.showMessageDialog(frame,"You lost!");
+                }
+            }
         }
 
     }
