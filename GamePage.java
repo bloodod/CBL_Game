@@ -1,11 +1,9 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
-
 import java.util.ArrayList;
 import java.util.Collections;
-//test
+import javax.swing.*;
 
 public class GamePage implements ActionListener {
 
@@ -17,13 +15,15 @@ public class GamePage implements ActionListener {
 
     static final int SIZE = 5;
     int numberAmount = 10;
-    int convertSeconds = 1000; //from milliseconds to seconds
+    int convertSeconds = 1000; // from milliseconds to seconds
     int maxTime = 3 * convertSeconds;
 
     int currentNumber = 1;
     String buttonNumber;
     int clickedNumber;
-    
+
+    Integer[][] hiddenNumbers; // Stores the numbers hidden from the player
+    Timer timer; // Timer to hide the numbers
 
     GamePage() {
 
@@ -32,15 +32,16 @@ public class GamePage implements ActionListener {
         backButton = new JButton("Exit this Game");
         gridPanel = new JPanel();
 
-        label.setBounds(350,50,200,50);
-        label.setFont(new Font(null,Font.PLAIN,25));
+        label.setBounds(350, 50, 200, 50);
+        label.setFont(new Font(null, Font.PLAIN, 25));
 
-        backButton.setBounds(300,500,200,40);
+        backButton.setBounds(300, 500, 200, 40);
         backButton.setFocusable(false);
         backButton.addActionListener(this);
 
         gridPanel.setLayout(new GridLayout(SIZE, SIZE, 5, 5));
         gridButtons = new JButton[SIZE][SIZE];
+        hiddenNumbers = new Integer[SIZE][SIZE]; // Initialize the hidden number storage
 
         InitializeGrid();
 
@@ -50,48 +51,46 @@ public class GamePage implements ActionListener {
         frame.add(backButton, BorderLayout.SOUTH);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800,600);
+        frame.setSize(800, 600);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == backButton) {
+        if (e.getSource() == backButton) {
             frame.dispose();
             FrontPage frontPage = new FrontPage();
         }
 
-        for (int i = 0; i < SIZE; i++ ) {
+        for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
 
-                //Check if the button is numbered
+                // Check if the player clicked a button
                 if (e.getSource() == gridButtons[i][j]) {
-                    buttonNumber = gridButtons[i][j].getText();
 
-                    //Get the number when it has one
-                    if (!buttonNumber.isEmpty()) {
-                        clickedNumber = Integer.parseInt(buttonNumber);
+                    // Get the hidden number stored for this button
+                    if (hiddenNumbers[i][j] != null) {
+                        clickedNumber = hiddenNumbers[i][j];
 
-                        // Check if the numbers are clicked in order
+                        // Check if the player clicked the correct number
                         if (clickedNumber == currentNumber) {
                             currentNumber++;
-                            gridButtons[i][j].setEnabled(false);
-                            
-                            //When all the buttons have been clicked in order
+                            gridButtons[i][j].setEnabled(false); // Disable the button once clicked
+
+                            // When all the buttons have been clicked in order
                             if (currentNumber > numberAmount - 1) {
                                 JOptionPane.showMessageDialog(frame, "Round complete!");
                                 ResetForNextRound();
-                            } 
+                            }
                         } else {
                             JOptionPane.showMessageDialog(frame, "You lost!");
                             ResetForNextRound();
                         }
                     }
-                }               
+                }
             }
         }
-
     }
 
     public void ResetForNextRound() {
@@ -105,29 +104,31 @@ public class GamePage implements ActionListener {
     public void InitializeGrid() {
         ArrayList<Integer> numbers = new ArrayList<>();
 
-        //Creating numbers and blanks for on the grid
+        // Creating numbers for the grid
         for (int i = 1; i < numberAmount; i++) {
             numbers.add(i);
         }
 
         for (int i = 0; i < SIZE * SIZE - numberAmount + 1; i++) {
-            numbers.add(null);
+            numbers.add(null); // Add empty spaces where there are no numbers
         }
 
-        //List gets shuffled for random positions on the grid
+        // Shuffle the numbers for random positions on the grid
         Collections.shuffle(numbers);
 
         int index = 0;
 
-        //Going through the whole grid
+        // Populate the grid with numbers or blanks
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 if (index < numbers.size()) {
-                    //Putting the number on the button
+                    // Set button text and store the number in hiddenNumbers array
                     if (numbers.get(index) != null) {
                         gridButtons[i][j] = new JButton(String.valueOf(numbers.get(index)));
-                    } else {        //Empty if not a number
-                        gridButtons [i][j] = new JButton("");
+                        hiddenNumbers[i][j] = numbers.get(index); // Store the number for later comparison
+                    } else {
+                        gridButtons[i][j] = new JButton("");
+                        hiddenNumbers[i][j] = null; // No number, so null
                     }
                     gridButtons[i][j].setFocusable(false);
                     gridButtons[i][j].addActionListener(this);
@@ -139,6 +140,30 @@ public class GamePage implements ActionListener {
 
         gridPanel.setBounds(100, 150, 600, 300);
 
+        // Start the timer to hide the numbers after 5 seconds
+        startHideNumbersTimer();
+    }
 
+    private void startHideNumbersTimer() {
+        // Initialize the timer to hide numbers after 5 seconds (5000 milliseconds)
+        timer = new Timer(5000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                hideNumbers();
+            }
+        });
+        timer.setRepeats(false); // Only run once
+        timer.start();
+    }
+
+    private void hideNumbers() {
+        // Hide all numbers by setting text to empty for each button
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (hiddenNumbers[i][j] != null) {
+                    gridButtons[i][j].setText(""); // Clear the text, but number is stored in hiddenNumbers
+                }
+            }
+        }
     }
 }
