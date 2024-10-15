@@ -16,7 +16,7 @@ public class GamePage implements ActionListener {
     static final int SIZE = 5;
     int numberAmount = 10;
     int convertSeconds = 1000; // from milliseconds to seconds
-    int maxTime = 3 * convertSeconds;
+    int maxTime = 5 * convertSeconds;
 
     int currentNumber = 1;
     String buttonNumber;
@@ -87,6 +87,9 @@ public class GamePage implements ActionListener {
                             JOptionPane.showMessageDialog(frame, "You lost!");
                             ResetForNextRound();
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "You lost!");
+                        ResetForNextRound();
                     }
                 }
             }
@@ -145,8 +148,8 @@ public class GamePage implements ActionListener {
     }
 
     private void startHideNumbersTimer() {
-        // Initialize the timer to hide numbers after 5 seconds (5000 milliseconds)
-        timer = new Timer(5000, new ActionListener() {
+        // Initialize the timer to hide numbers after 5 seconds
+        timer = new Timer(maxTime, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 hideNumbers();
