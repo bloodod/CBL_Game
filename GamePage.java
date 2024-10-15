@@ -21,7 +21,7 @@ public class GamePage implements ActionListener {
 
     int currentNumber = 1;
     String buttonNumber;
-    int buttonNumberStringToInt;
+    int clickedNumber;
     
 
     GamePage() {
@@ -50,7 +50,6 @@ public class GamePage implements ActionListener {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800,600);
-        frame.setLayout(null);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     }
@@ -64,16 +63,42 @@ public class GamePage implements ActionListener {
 
         for (int i = 0; i < SIZE; i++ ) {
             for (int j = 0; j < SIZE; j++) {
-                buttonNumber = gridButtons[i][j].getText();
-                buttonNumberStringToInt = Integer.parseInt(buttonNumber);
-                if (buttonNumberStringToInt == currentNumber) {
-                    currentNumber++;
-                } else {
-                    JOptionPane.showMessageDialog(frame,"You lost!");
-                }
+
+                //Check if the button is numbered
+                if (e.getSource() == gridButtons[i][j]) {
+                    buttonNumber = gridButtons[i][j].getText();
+
+                    //Get the number when it has one
+                    if (!buttonNumber.isEmpty()) {
+                        clickedNumber = Integer.parseInt(buttonNumber);
+
+                        // Check if the numbers are clicked in order
+                        if (clickedNumber == currentNumber) {
+                            currentNumber++;
+                            gridButtons[i][j].setEnabled(false);
+                            
+                            //When all the buttons have been clicked in order
+                            if (currentNumber > numberAmount - 1) {
+                                JOptionPane.showMessageDialog(frame, "Round complete!");
+                                ResetForNextRound();
+                            } 
+                        } else {
+                            JOptionPane.showMessageDialog(frame, "You lost!");
+                            ResetForNextRound();
+                        }
+                    }
+                }               
             }
         }
 
+    }
+
+    public void ResetForNextRound() {
+        currentNumber = 1;
+        gridPanel.removeAll();
+        InitializeGrid();
+        gridPanel.revalidate();
+        gridPanel.repaint();
     }
 
     public void InitializeGrid() {
