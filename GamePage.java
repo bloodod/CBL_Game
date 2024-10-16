@@ -24,6 +24,7 @@ public class GamePage implements ActionListener {
 
     Integer[][] hiddenNumbers; // Stores the numbers hidden from the player
     Timer timer; // Timer to hide the numbers
+    ArrayList<ImageIcon> imageList; //Store 25 images
 
     GamePage() {
 
@@ -42,6 +43,9 @@ public class GamePage implements ActionListener {
         gridPanel.setLayout(new GridLayout(SIZE, SIZE, 5, 5));
         gridButtons = new JButton[SIZE][SIZE];
         hiddenNumbers = new Integer[SIZE][SIZE]; // Initialize the hidden number storage
+
+        imageList = new ArrayList<>();
+        LoadImages();
 
         InitializeGrid();
 
@@ -157,6 +161,7 @@ public class GamePage implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 hideNumbers();
                 enableButtons();
+                changeToImage();
             }
         });
         timer.setRepeats(false); // Only run once
@@ -179,6 +184,30 @@ public class GamePage implements ActionListener {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 gridButtons[i][j].setEnabled(true); // Enable the button
+            }
+        }
+    }
+
+    private void changeToImage() {
+        int counter = 0;
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                gridButtons[i][j].setIcon(imageList.get(counter));
+                counter++;
+            }
+        }
+    }
+
+    private void LoadImages() {
+        for (int i = 1; i <= SIZE * SIZE; i++) {
+            String path = "D:\\Users\\20212656\\OneDrive - TU Eindhoven\\Documents\\GitHub\\CBL_Game\\Figures\\" + i + ".png";
+            System.out.println("Loading image from path: " + path);
+        
+            ImageIcon icon = new ImageIcon(path);
+            if (icon.getImageLoadStatus() == java.awt.MediaTracker.ERRORED) {
+                System.out.println("Error loading image: " + path);
+            } else {
+                imageList.add(icon);
             }
         }
     }
