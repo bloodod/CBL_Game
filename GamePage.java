@@ -30,9 +30,9 @@ public class GamePage implements ActionListener {
     GamePage() {
 
         frame = new JFrame("Game");
-        label = new JLabel("Game Page");
         backButton = new JButton("Exit this Game");
         gridPanel = new JPanel();
+        label = new JLabel("Round: " + numberAmount);
 
         label.setBounds(350, 50, 200, 50);
         label.setFont(new Font(null, Font.PLAIN, 25));
@@ -110,6 +110,8 @@ public class GamePage implements ActionListener {
         currentNumber = 1;
         gridPanel.removeAll();
         InitializeGrid();
+
+        label.setText("Round: " + numberAmount);
         gridPanel.revalidate(); // Layout update
         gridPanel.repaint(); // Visual update
     }
