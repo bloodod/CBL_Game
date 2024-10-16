@@ -15,7 +15,7 @@ public class GamePage implements ActionListener {
     JPanel gridPanel;
 
     static final int SIZE = 5; // Grid size
-    int numberAmount = 3; // Amount of numbers on the grid
+    int numberAmount = 1; // Amount of numbers on the grid
     int convertSeconds = 1000; // From milliseconds to seconds
     int maxTime = 5 * convertSeconds; // Time you can view the numbers
 
@@ -92,13 +92,13 @@ public class GamePage implements ActionListener {
                         } else {
                             // When the wrong order is clicked
                             JOptionPane.showMessageDialog(frame, "You lost!"); //Change to end screen
-                            numberAmount = 3;
+                            numberAmount = 1;
                             ResetForNextRound();
                         }
                     } else {
                         // When a button is clicked that had no number
                         JOptionPane.showMessageDialog(frame, "You lost!"); //Change to end screen
-                        numberAmount = 3;
+                        numberAmount = 1;
                         ResetForNextRound();
                     }
                 }
