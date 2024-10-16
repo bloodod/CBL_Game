@@ -16,7 +16,7 @@ public class GamePage implements ActionListener {
     static final int SIZE = 5;
     int numberAmount = 10;
     int convertSeconds = 1000; // from milliseconds to seconds
-    int maxTime = 5 * convertSeconds;
+    int maxTime = 1 * convertSeconds;
 
     int currentNumber = 1;
     String buttonNumber;
@@ -144,6 +144,7 @@ public class GamePage implements ActionListener {
                     gridButtons[i][j].setEnabled(false);
                     gridPanel.add(gridButtons[i][j]);
                     index++;
+                    
                 }
             }
         }
@@ -152,6 +153,7 @@ public class GamePage implements ActionListener {
 
         // Start the timer to hide the numbers after 5 seconds
         startHideNumbersTimer();
+
     }
 
     private void startHideNumbersTimer() {
@@ -207,7 +209,10 @@ public class GamePage implements ActionListener {
             if (icon.getImageLoadStatus() == java.awt.MediaTracker.ERRORED) {
                 System.out.println("Error loading image: " + path);
             } else {
-                imageList.add(icon);
+                Image image = icon.getImage();
+                Image resizedImage = image.getScaledInstance(200, 100, Image.SCALE_SMOOTH);
+                ImageIcon resizedIcon = new ImageIcon(resizedImage);
+                imageList.add(resizedIcon);
             }
         }
     }
