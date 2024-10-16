@@ -14,12 +14,12 @@ public class GamePage implements ActionListener {
     JButton[][] gridButtons;
     JPanel gridPanel;
 
-    static final int SIZE = 5;
-    int numberAmount = 10;
-    int convertSeconds = 1000; // from milliseconds to seconds
-    int maxTime = 1 * convertSeconds;
+    static final int SIZE = 5; // Grid size
+    int numberAmount = 9; // Amount of numbers on the grid
+    int convertSeconds = 1000; // From milliseconds to seconds
+    int maxTime = 5 * convertSeconds; // Time you can view the numbers
 
-    int currentNumber = 1;
+    int currentNumber = 1; // To check the clicking order
     String buttonNumber;
     int clickedNumber;
 
@@ -89,13 +89,13 @@ public class GamePage implements ActionListener {
                                 ResetForNextRound();
                             }
                         } else {
-                            //When the wrong order is clicked
-                            JOptionPane.showMessageDialog(frame, "You lost!");
+                            // When the wrong order is clicked
+                            JOptionPane.showMessageDialog(frame, "You lost!"); //Change to end screen
                             ResetForNextRound();
                         }
                     } else {
-                        //When a button is clicked that had no number
-                        JOptionPane.showMessageDialog(frame, "You lost!");
+                        // When a button is clicked that had no number
+                        JOptionPane.showMessageDialog(frame, "You lost!"); //Change to end screen
                         ResetForNextRound();
                     }
                 }
@@ -107,19 +107,19 @@ public class GamePage implements ActionListener {
         currentNumber = 1;
         gridPanel.removeAll();
         InitializeGrid();
-        gridPanel.revalidate(); //layout update
-        gridPanel.repaint(); // visual update
+        gridPanel.revalidate(); // Layout update
+        gridPanel.repaint(); // Visual update
     }
 
     public void InitializeGrid() {
         ArrayList<Integer> numbers = new ArrayList<>();
 
         // Creating numbers for the grid
-        for (int i = 1; i < numberAmount; i++) {
+        for (int i = 1; i <= numberAmount; i++) {
             numbers.add(i);
         }
 
-        for (int i = 0; i < SIZE * SIZE - numberAmount + 1; i++) {
+        for (int i = 0; i < SIZE * SIZE - numberAmount; i++) {
             numbers.add(null); // Add empty spaces where there are no numbers
         }
 
@@ -202,8 +202,10 @@ public class GamePage implements ActionListener {
     }
 
     private void LoadImages() {
+
+        // Topleft image is number 25
         for (int i = SIZE * SIZE; i >= 1; i--) {
-            // Image file names like 1.png, 2.png, etc.
+            // Image file names like 25.png, 24.png, etc.
             String imageName = i + ".png";
             
             // Use relative file path for testing
