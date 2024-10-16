@@ -84,10 +84,12 @@ public class GamePage implements ActionListener {
                                 ResetForNextRound();
                             }
                         } else {
+                            //When the wrong order is clicked
                             JOptionPane.showMessageDialog(frame, "You lost!");
                             ResetForNextRound();
                         }
                     } else {
+                        //When a button is clicked that had no number
                         JOptionPane.showMessageDialog(frame, "You lost!");
                         ResetForNextRound();
                     }
@@ -100,8 +102,8 @@ public class GamePage implements ActionListener {
         currentNumber = 1;
         gridPanel.removeAll();
         InitializeGrid();
-        gridPanel.revalidate();
-        gridPanel.repaint();
+        gridPanel.revalidate(); //layout update
+        gridPanel.repaint(); // visual update
     }
 
     public void InitializeGrid() {
@@ -135,6 +137,7 @@ public class GamePage implements ActionListener {
                     }
                     gridButtons[i][j].setFocusable(false);
                     gridButtons[i][j].addActionListener(this);
+                    gridButtons[i][j].setEnabled(false);
                     gridPanel.add(gridButtons[i][j]);
                     index++;
                 }
@@ -153,6 +156,7 @@ public class GamePage implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 hideNumbers();
+                enableButtons();
             }
         });
         timer.setRepeats(false); // Only run once
@@ -166,6 +170,15 @@ public class GamePage implements ActionListener {
                 if (hiddenNumbers[i][j] != null) {
                     gridButtons[i][j].setText(""); // Clear the text, but number is stored in hiddenNumbers
                 }
+            }
+        }
+    }
+
+    private void enableButtons() {
+        // Enable all buttons after 3 seconds
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                gridButtons[i][j].setEnabled(true); // Enable the button
             }
         }
     }
