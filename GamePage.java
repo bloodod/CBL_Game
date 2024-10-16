@@ -92,11 +92,13 @@ public class GamePage implements ActionListener {
                         } else {
                             // When the wrong order is clicked
                             JOptionPane.showMessageDialog(frame, "You lost!"); //Change to end screen
+                            numberAmount = 3;
                             ResetForNextRound();
                         }
                     } else {
                         // When a button is clicked that had no number
                         JOptionPane.showMessageDialog(frame, "You lost!"); //Change to end screen
+                        numberAmount = 3;
                         ResetForNextRound();
                     }
                 }
