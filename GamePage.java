@@ -85,7 +85,7 @@ public class GamePage implements ActionListener {
 
                             // When all the buttons have been clicked in order
                             if (currentNumber > numberAmount) {
-                                JOptionPane.showMessageDialog(frame, "Round complete!");
+                                // JOptionPane.showMessageDialog(frame, "Round complete!");
                                 numberAmount++;
                                 ResetForNextRound();
                             }
