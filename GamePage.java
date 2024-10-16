@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.*;
+import java.io.File;
 
 public class GamePage implements ActionListener {
 
@@ -202,18 +203,25 @@ public class GamePage implements ActionListener {
 
     private void LoadImages() {
         for (int i = SIZE * SIZE; i >= 1; i--) {
-            String path = "D:\\Users\\20212656\\OneDrive - TU Eindhoven\\Documents\\GitHub\\CBL_Game\\Figures\\" + i + ".png";
-            System.out.println("Loading image from path: " + path);
-        
-            ImageIcon icon = new ImageIcon(path);
-            if (icon.getImageLoadStatus() == java.awt.MediaTracker.ERRORED) {
-                System.out.println("Error loading image: " + path);
-            } else {
-                Image image = icon.getImage();
-                Image resizedImage = image.getScaledInstance(200, 100, Image.SCALE_SMOOTH);
-                ImageIcon resizedIcon = new ImageIcon(resizedImage);
-                imageList.add(resizedIcon);
+            // Image file names like 1.png, 2.png, etc.
+            String imageName = i + ".png";
+            
+            // Use relative file path for testing
+            File imageFile = new File("resources/" + imageName);
+            
+            if (!imageFile.exists()) {
+                System.out.println("Image not found: " + imageName);
+                continue; // Skip if the image is not found
             }
+            
+            // Load and resize the image
+            ImageIcon icon = new ImageIcon(imageFile.getAbsolutePath()); // Load using absolute file path
+            Image image = icon.getImage();
+            Image resizedImage = image.getScaledInstance(200, 100, Image.SCALE_SMOOTH); // Resize
+            ImageIcon resizedIcon = new ImageIcon(resizedImage); // Convert back to ImageIcon
+            
+            imageList.add(resizedIcon);
+            System.out.println("Successfully loaded and resized: " + imageName);
         }
     }
 }
