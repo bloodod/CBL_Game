@@ -15,7 +15,7 @@ public class GamePage implements ActionListener {
     JPanel gridPanel;
 
     static final int SIZE = 5; // Grid size
-    int numberAmount = 9; // Amount of numbers on the grid
+    int numberAmount = 3; // Amount of numbers on the grid
     int convertSeconds = 1000; // From milliseconds to seconds
     int maxTime = 5 * convertSeconds; // Time you can view the numbers
 
@@ -84,8 +84,9 @@ public class GamePage implements ActionListener {
                             gridButtons[i][j].setEnabled(false); // Disable the button once clicked
 
                             // When all the buttons have been clicked in order
-                            if (currentNumber > numberAmount - 1) {
+                            if (currentNumber > numberAmount) {
                                 JOptionPane.showMessageDialog(frame, "Round complete!");
+                                numberAmount++;
                                 ResetForNextRound();
                             }
                         } else {
