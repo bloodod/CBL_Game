@@ -199,7 +199,7 @@ public class GamePage implements ActionListener {
     }
 
     private void LoadImages() {
-        for (int i = 1; i <= SIZE * SIZE; i++) {
+        for (int i = SIZE * SIZE; i >= 1; i--) {
             String path = "D:\\Users\\20212656\\OneDrive - TU Eindhoven\\Documents\\GitHub\\CBL_Game\\Figures\\" + i + ".png";
             System.out.println("Loading image from path: " + path);
         
