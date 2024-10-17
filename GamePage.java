@@ -93,23 +93,13 @@ public class GamePage implements ActionListener {
                             }
                         } else {
                             // When the wrong order is clicked
-                            // JOptionPane.showMessageDialog(frame, "You lost!"); //Change to end screen
-                            frame.dispose(); //Change to end screen
-                            EndPage endPage = new EndPage();
-
-                            // numberAmount = 1;
-                            // roundCounter = 1;
-                            // ResetForNextRound();
+                            frame.dispose(); 
+                            EndPage endPage = new EndPage(roundCounter - 1); //Change to end screen
                         }
                     } else {
                         // When a button is clicked that had no number
-                        // JOptionPane.showMessageDialog(frame, "You lost!"); //Change to end screen
-                        frame.dispose(); //Change to end screen
-                        EndPage endPage = new EndPage();
-
-                        // numberAmount = 1;
-                        // roundCounter = 1;
-                        // ResetForNextRound();
+                        frame.dispose(); 
+                        EndPage endPage = new EndPage(roundCounter - 1); //Change to end screen
                     }
                 }
             }
@@ -240,5 +230,9 @@ public class GamePage implements ActionListener {
             imageList.add(resizedIcon);
             System.out.println("Successfully loaded and resized: " + imageName);
         }
+    }
+
+    public int getRoundCounter() {
+        return roundCounter;
     }
 }
