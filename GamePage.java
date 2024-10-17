@@ -93,17 +93,23 @@ public class GamePage implements ActionListener {
                             }
                         } else {
                             // When the wrong order is clicked
-                            JOptionPane.showMessageDialog(frame, "You lost!"); //Change to end screen
-                            numberAmount = 1;
-                            roundCounter = 1;
-                            ResetForNextRound();
+                            // JOptionPane.showMessageDialog(frame, "You lost!"); //Change to end screen
+                            frame.dispose(); //Change to end screen
+                            EndPage endPage = new EndPage();
+
+                            // numberAmount = 1;
+                            // roundCounter = 1;
+                            // ResetForNextRound();
                         }
                     } else {
                         // When a button is clicked that had no number
-                        JOptionPane.showMessageDialog(frame, "You lost!"); //Change to end screen
-                        numberAmount = 1;
-                        roundCounter = 1;
-                        ResetForNextRound();
+                        // JOptionPane.showMessageDialog(frame, "You lost!"); //Change to end screen
+                        frame.dispose(); //Change to end screen
+                        EndPage endPage = new EndPage();
+
+                        // numberAmount = 1;
+                        // roundCounter = 1;
+                        // ResetForNextRound();
                     }
                 }
             }
