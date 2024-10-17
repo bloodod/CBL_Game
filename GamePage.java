@@ -27,6 +27,8 @@ public class GamePage implements ActionListener {
     Integer[][] hiddenNumbers; // Stores the numbers hidden from the player
     Timer timer; // Timer to hide the numbers
     ArrayList<ImageIcon> imageList; //Store 25 images
+    private ImageIcon greenIcon;
+    private ImageIcon redIcon;
 
     GamePage() {
 
