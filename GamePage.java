@@ -26,9 +26,12 @@ public class GamePage implements ActionListener {
 
     Integer[][] hiddenNumbers; // Stores the numbers hidden from the player
     Timer timer; // Timer to hide the numbers
+    Timer delay; // For when the round is over
     ArrayList<ImageIcon> imageList; //Store 25 images
-    private ImageIcon greenIcon;
-    private ImageIcon redIcon;
+    File greenFile;
+    File redFile;
+    ImageIcon greenIcon;
+    ImageIcon redIcon;
 
     GamePage() {
 
@@ -50,6 +53,23 @@ public class GamePage implements ActionListener {
 
         imageList = new ArrayList<>();
         LoadImages();
+
+        greenFile = new File("resources/green.png");
+        redFile = new File("resources/red.png");
+        
+        if (greenFile.exists()) {
+            greenIcon = new ImageIcon(greenFile.getAbsolutePath());
+            System.out.println("Successfully loaded green.png");
+        } else {
+            System.out.println("green.png not found!");
+        }
+        
+        if (redFile.exists()) {
+            redIcon = new ImageIcon(redFile.getAbsolutePath());
+            System.out.println("Successfully loaded red.png");
+        } else {
+            System.out.println("red.png not found!");
+        }
 
         InitializeGrid();
 
@@ -84,24 +104,72 @@ public class GamePage implements ActionListener {
                         // Check if the player clicked the correct number
                         if (clickedNumber == currentNumber) {
                             currentNumber++;
+                            gridButtons[i][j].setDisabledIcon(greenIcon);
                             gridButtons[i][j].setEnabled(false); // Disable the button once clicked
 
                             // When all the buttons have been clicked in order
                             if (currentNumber > numberAmount) {
                                 // JOptionPane.showMessageDialog(frame, "Round complete!");
-                                numberAmount++;
-                                roundCounter++;
-                                ResetForNextRound();
+                                // numberAmount++;
+                                // roundCounter++;
+                                // ResetForNextRound();
+                                SwingUtilities.invokeLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // Create a Timer to introduce a delay before moving to the end page
+                                        delay = new Timer(200, new ActionListener() { // 1000 ms = 1 second delay
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                numberAmount++;
+                                                roundCounter++;
+                                                ResetForNextRound();
+                                            }
+                                        });
+                                        delay.setRepeats(false); // Only run once after the delay
+                                        delay.start(); // Start the timer
+                                    }
+                                });
                             }
                         } else {
                             // When the wrong order is clicked
-                            frame.dispose(); 
-                            EndPage endPage = new EndPage(roundCounter - 1); //Change to end screen
+                            gridButtons[i][j].setDisabledIcon(redIcon);
+                            gridButtons[i][j].setEnabled(false);
+                            SwingUtilities.invokeLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // Create a Timer to introduce a delay before moving to the end page
+                                    delay = new Timer(1000, new ActionListener() { // 1000 ms = 1 second delay
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            frame.dispose(); 
+                                            EndPage endPage = new EndPage(roundCounter - 1); //Change to end screen
+                                        }
+                                    });
+                                    delay.setRepeats(false); // Only run once after the delay
+                                    delay.start(); // Start the timer
+                                }
+                            });
+
                         }
                     } else {
                         // When a button is clicked that had no number
-                        frame.dispose(); 
-                        EndPage endPage = new EndPage(roundCounter - 1); //Change to end screen
+                        gridButtons[i][j].setDisabledIcon(redIcon);
+                        gridButtons[i][j].setEnabled(false);
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                // Create a Timer to introduce a delay before moving to the end page
+                                delay = new Timer(1000, new ActionListener() { // 1000 ms = 1 second delay
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                        frame.dispose(); 
+                                        EndPage endPage = new EndPage(roundCounter - 1); //Change to end screen
+                                    }
+                                });
+                                delay.setRepeats(false); // Only run once after the delay
+                                delay.start(); // Start the timer
+                            }
+                        });
                     }
                 }
             }
