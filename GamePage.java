@@ -17,11 +17,12 @@ public class GamePage implements ActionListener {
     static final int SIZE = 5; // Grid size
     int numberAmount = 1; // Amount of numbers on the grid
     int convertSeconds = 1000; // From milliseconds to seconds
-    int maxTime = 5 * convertSeconds; // Time you can view the numbers
+    int maxTime = 3 * convertSeconds; // Time you can view the numbers
 
     int currentNumber = 1; // To check the clicking order
     String buttonNumber;
     int clickedNumber;
+    int roundCounter = 1; // Number of rounds
 
     Integer[][] hiddenNumbers; // Stores the numbers hidden from the player
     Timer timer; // Timer to hide the numbers
@@ -32,7 +33,7 @@ public class GamePage implements ActionListener {
         frame = new JFrame("Game");
         backButton = new JButton("Exit this Game");
         gridPanel = new JPanel();
-        label = new JLabel("Round: " + numberAmount);
+        label = new JLabel("Round: " + roundCounter);
 
         label.setBounds(350, 50, 200, 50);
         label.setFont(new Font(null, Font.PLAIN, 25));
@@ -87,18 +88,21 @@ public class GamePage implements ActionListener {
                             if (currentNumber > numberAmount) {
                                 // JOptionPane.showMessageDialog(frame, "Round complete!");
                                 numberAmount++;
+                                roundCounter++;
                                 ResetForNextRound();
                             }
                         } else {
                             // When the wrong order is clicked
                             JOptionPane.showMessageDialog(frame, "You lost!"); //Change to end screen
                             numberAmount = 1;
+                            roundCounter = 1;
                             ResetForNextRound();
                         }
                     } else {
                         // When a button is clicked that had no number
                         JOptionPane.showMessageDialog(frame, "You lost!"); //Change to end screen
                         numberAmount = 1;
+                        roundCounter = 1;
                         ResetForNextRound();
                     }
                 }
@@ -111,7 +115,7 @@ public class GamePage implements ActionListener {
         gridPanel.removeAll();
         InitializeGrid();
 
-        label.setText("Round: " + numberAmount);
+        label.setText("Round: " + roundCounter);
         gridPanel.revalidate(); // Layout update
         gridPanel.repaint(); // Visual update
     }

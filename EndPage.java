@@ -8,6 +8,7 @@ public class EndPage implements ActionListener {
     JButton buttonPlayAgain;
     JButton buttonExit;
     JLabel highscoreLabel;
+    JLabel scoreLabel;
 
 
     EndPage() {
@@ -15,6 +16,7 @@ public class EndPage implements ActionListener {
         buttonPlayAgain = new JButton("Play again");
         buttonExit = new JButton("Exit");
         highscoreLabel = new JLabel("Highscore: ");
+        scoreLabel = new JLabel("Your score: ");
 
         buttonPlayAgain.setBounds(300,150,200,40);
         buttonPlayAgain.setFocusable(false);
@@ -39,6 +41,13 @@ public class EndPage implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == buttonPlayAgain) {
+            frame.dispose();
+            GamePage gamePage = new GamePage();
+        }
 
+        if (e.getSource() == buttonExit) {
+            frame.dispose();
+        }
     }
 }
