@@ -48,11 +48,11 @@ public class EndPage implements ActionListener {
         buttonExit.setForeground(Color.WHITE);
 
         highscoreLabel.setBounds(300,100,400,40);
-        highscoreLabel.setFont(new Font(null,Font.PLAIN,25));
+        highscoreLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 25));
         highscoreLabel.setForeground(new Color(101, 67, 33));
 
         scoreLabel.setBounds(300, 50, 400, 40);
-        scoreLabel.setFont(new Font(null,Font.PLAIN,25));
+        scoreLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 25));
         scoreLabel.setForeground(new Color(101, 67, 33));
 
         backgroundPanel.add(buttonPlayAgain);
@@ -61,7 +61,7 @@ public class EndPage implements ActionListener {
         backgroundPanel.add(scoreLabel);
 
         frame.setContentPane(backgroundPanel);
-        
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800,600);
         frame.setLayout(null);

@@ -10,9 +10,10 @@ public class GamePage implements ActionListener {
 
     JFrame frame;
     JLabel label;
-    JButton backButton;
+    JButton revealButton;
     JButton[][] gridButtons;
     JPanel gridPanel;
+    BackgroundPanel backgroundPanel;
 
     static final int SIZE = 5; // Grid size
     int numberAmount = 1; // Amount of numbers on the grid
@@ -39,16 +40,21 @@ public class GamePage implements ActionListener {
     GamePage() {
 
         frame = new JFrame("Game");
-        backButton = new JButton("Exit this Game");
+
+        backgroundPanel = new BackgroundPanel("resources/banana_background.jpeg");
+        backgroundPanel.setLayout(new BorderLayout());
+
+        revealButton = new JButton("Exit this Game");
         gridPanel = new JPanel();
         label = new JLabel("Round: " + roundCounter);
 
         label.setBounds(350, 50, 200, 50);
-        label.setFont(new Font(null, Font.PLAIN, 25));
+        label.setFont(new Font("Comic Sans MS", Font.BOLD, 25)); // Bigger playful font
+        label.setForeground(new Color(101, 67, 33)); // Dark brown text
 
-        backButton.setBounds(300, 500, 200, 40);
-        backButton.setFocusable(false);
-        backButton.addActionListener(this);
+        revealButton.setBounds(300, 500, 200, 40);
+        revealButton.setFocusable(false);
+        revealButton.addActionListener(this);
 
         gridPanel.setLayout(new GridLayout(SIZE, SIZE, 5, 5));
         gridButtons = new JButton[SIZE][SIZE];
@@ -81,10 +87,11 @@ public class GamePage implements ActionListener {
 
         InitializeGrid();
 
-        frame.setLayout(new BorderLayout());
-        frame.add(label, BorderLayout.NORTH);
-        frame.add(gridPanel, BorderLayout.CENTER);
-        frame.add(backButton, BorderLayout.SOUTH);
+        backgroundPanel.add(label, BorderLayout.NORTH);
+        backgroundPanel.add(gridPanel, BorderLayout.CENTER);
+        backgroundPanel.add(revealButton, BorderLayout.SOUTH);
+
+        frame.setContentPane(backgroundPanel);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
@@ -94,7 +101,7 @@ public class GamePage implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == backButton) {
+        if (e.getSource() == revealButton) {
             // musicPlayer.stop();
             // musicPlayer.close();
             // frame.dispose();
@@ -197,7 +204,7 @@ public class GamePage implements ActionListener {
                 clickedButtons[i][j] = false; // Reset all buttons to "unclicked"
             }
         }
-        
+
         gridPanel.removeAll();
         InitializeGrid();
 
