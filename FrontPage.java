@@ -41,7 +41,7 @@ public class FrontPage implements ActionListener {
         backgroundPanel.add(button2);
         backgroundPanel.add(title);
 
-frame.setContentPane(backgroundPanel);
+        frame.setContentPane(backgroundPanel);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800,600);
