@@ -47,7 +47,7 @@ public class GamePage implements ActionListener {
         backgroundPanel = new BackgroundPanel("resources/banana_background.jpeg");
         backgroundPanel.setLayout(new BorderLayout());
 
-        revealButton = new JButton("Power-up gamble");
+        revealButton = new TransparentButton("Power-up gamble", new Color(34, 139, 34));
         gridPanel = new JPanel();
         label = new JLabel("Round: " + roundCounter);
 
@@ -58,6 +58,8 @@ public class GamePage implements ActionListener {
         revealButton.setBounds(300, 500, 200, 40);
         revealButton.setFocusable(false);
         revealButton.addActionListener(this);
+        revealButton.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
+        revealButton.setForeground(Color.WHITE);
 
         gridPanel.setLayout(new GridLayout(SIZE, SIZE, 5, 5));
         gridButtons = new JButton[SIZE][SIZE];
