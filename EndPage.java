@@ -12,6 +12,8 @@ public class EndPage implements ActionListener {
     JLabel scoreLabel;
     GamePage gamePage;
     MusicPlayer musicPlayer;
+    BackgroundPanel backgroundPanel;
+
 
     static int highscore = 0;
     static final String HIGHSCORE_FILE = "highscore.txt";
@@ -26,31 +28,40 @@ public class EndPage implements ActionListener {
         }
 
         frame = new JFrame("End screen");
-        buttonPlayAgain = new JButton("Play again");
-        buttonExit = new JButton("Exit");
+        buttonPlayAgain = new TransparentButton("Play again", new Color(34, 139, 34));
+        buttonExit = new TransparentButton("Exit", new Color(34, 139, 34));
         highscoreLabel = new JLabel("Highscore:  " + highscore);
         scoreLabel = new JLabel("Your score: " + (score) );
+        backgroundPanel = new BackgroundPanel("resources/banana_background.jpeg");
+        backgroundPanel.setLayout(null);
         musicPlayer = new MusicPlayer("Moonlight_Sonata 2.wav");
         musicPlayer.play();
 
         buttonPlayAgain.setBounds(300,200,200,40);
         buttonPlayAgain.setFocusable(false);
         buttonPlayAgain.addActionListener(this);
+        buttonPlayAgain.setForeground(Color.WHITE);
 
         buttonExit.setBounds(300,300,200,40);
         buttonExit.setFocusable(false);
         buttonExit.addActionListener(this);
+        buttonExit.setForeground(Color.WHITE);
 
         highscoreLabel.setBounds(300,100,400,40);
         highscoreLabel.setFont(new Font(null,Font.PLAIN,25));
+        highscoreLabel.setForeground(new Color(101, 67, 33));
 
         scoreLabel.setBounds(300, 50, 400, 40);
         scoreLabel.setFont(new Font(null,Font.PLAIN,25));
+        scoreLabel.setForeground(new Color(101, 67, 33));
 
-        frame.add(buttonPlayAgain);
-        frame.add(buttonExit);
-        frame.add(highscoreLabel);
-        frame.add(scoreLabel);
+        backgroundPanel.add(buttonPlayAgain);
+        backgroundPanel.add(buttonExit);
+        backgroundPanel.add(highscoreLabel);
+        backgroundPanel.add(scoreLabel);
+
+        frame.setContentPane(backgroundPanel);
+        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800,600);
         frame.setLayout(null);

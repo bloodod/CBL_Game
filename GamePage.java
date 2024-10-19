@@ -92,10 +92,11 @@ public class GamePage implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == backButton) {
-            musicPlayer.stop();
-            musicPlayer.close();
-            frame.dispose();
-            FrontPage frontPage = new FrontPage();
+            // musicPlayer.stop();
+            // musicPlayer.close();
+            // frame.dispose();
+            // FrontPage frontPage = new FrontPage();
+            triggerReshow();;
         }
 
         for (int i = 0; i < SIZE; i++) {
@@ -312,5 +313,40 @@ public class GamePage implements ActionListener {
 
     public int getRoundCounter() {
         return roundCounter;
+    }
+
+    public void reshowNumbers() {
+        // Loop through the grid buttons
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                gridButtons[i][j].setIcon(null);
+
+                if (hiddenNumbers[i][j] != null) {
+
+                    gridButtons[i][j].setText(String.valueOf(hiddenNumbers[i][j]));
+                } else {
+ 
+                    gridButtons[i][j].setText("");
+                }
+                // Disable the button to ensure players can't click during the reveal
+                gridButtons[i][j].setEnabled(false);
+            }
+        }
+    }
+
+
+    public void triggerReshow() {
+        reshowNumbers(); // Call the method to reshow the numbers
+
+        Timer timer = new Timer(3000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                hideNumbers();
+                enableButtons();
+                changeToImage();
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
     }
 }
