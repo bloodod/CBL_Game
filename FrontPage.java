@@ -9,12 +9,15 @@ public class FrontPage implements ActionListener {
     JButton button1;
     JButton button2;
     JLabel title;
+    BackgroundPanel backgroundPanel; 
 
     FrontPage() {
         frame = new JFrame("Chimpanzee Remembers");
         button1 = new JButton("Play");  // Initialize the button
         button2 = new JButton("Tutorial");
         title = new JLabel("Chimpanzee Game");
+        backgroundPanel = new BackgroundPanel("resources/banana_background.jpeg");
+        backgroundPanel.setLayout(null);
 
         button1.setBounds(300,150,200,40);
         button1.setFocusable(false);
@@ -27,9 +30,12 @@ public class FrontPage implements ActionListener {
         title.setBounds(300,50,400,40);
         title.setFont(new Font(null,Font.PLAIN,25));
 
-        frame.add(button1);
-        frame.add(button2);
-        frame.add(title);
+        backgroundPanel.add(button1);
+        backgroundPanel.add(button2);
+        backgroundPanel.add(title);
+
+frame.setContentPane(backgroundPanel);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800,600);
         frame.setLayout(null);
@@ -49,5 +55,7 @@ public class FrontPage implements ActionListener {
             TutorialPage tutorialPage = new TutorialPage();
         }
     }
+
+    
 
 }
