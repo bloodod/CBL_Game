@@ -33,6 +33,8 @@ public class GamePage implements ActionListener {
     ImageIcon greenIcon;
     ImageIcon redIcon;
 
+    MusicPlayer musicPlayer;
+
     GamePage() {
 
         frame = new JFrame("Game");
@@ -71,6 +73,9 @@ public class GamePage implements ActionListener {
             System.out.println("red.png not found!");
         }
 
+        musicPlayer = new MusicPlayer("Moonlight_Sonata 3.wav");
+        musicPlayer.play();
+
         InitializeGrid();
 
         frame.setLayout(new BorderLayout());
@@ -87,6 +92,8 @@ public class GamePage implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == backButton) {
+            musicPlayer.stop();
+            musicPlayer.close();
             frame.dispose();
             FrontPage frontPage = new FrontPage();
         }
@@ -138,6 +145,8 @@ public class GamePage implements ActionListener {
                                     delay = new Timer(1000, new ActionListener() { // 1000 ms = 1 second delay
                                         @Override
                                         public void actionPerformed(ActionEvent e) {
+                                            musicPlayer.stop();
+                                            musicPlayer.close();
                                             frame.dispose(); 
                                             EndPage endPage = new EndPage(roundCounter - 1); //Change to end screen
                                         }
@@ -159,6 +168,8 @@ public class GamePage implements ActionListener {
                                 delay = new Timer(1000, new ActionListener() { // 1000 ms = 1 second delay
                                     @Override
                                     public void actionPerformed(ActionEvent e) {
+                                        musicPlayer.stop();
+                                        musicPlayer.close();
                                         frame.dispose(); 
                                         EndPage endPage = new EndPage(roundCounter - 1); //Change to end screen
                                     }

@@ -32,7 +32,7 @@ public class FrontPage implements ActionListener {
         button2.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
         button2.setForeground(Color.WHITE); // White text       
 
-        title.setBounds(280,50,400,40);
+        title.setBounds(275,50,400,40);
         title.setFont(new Font("Comic Sans MS", Font.BOLD, 30)); // Bigger playful font
         title.setForeground(new Color(101, 67, 33)); // Dark brown text
 
