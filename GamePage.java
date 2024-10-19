@@ -55,7 +55,7 @@ public class GamePage implements ActionListener {
         label.setFont(new Font("Comic Sans MS", Font.BOLD, 25)); // Bigger playful font
         label.setForeground(new Color(101, 67, 33)); // Dark brown text
 
-        revealButton.setBounds(300, 500, 200, 40);
+        revealButton.setPreferredSize(new Dimension(200, 40));
         revealButton.setFocusable(false);
         revealButton.addActionListener(this);
         revealButton.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
@@ -94,7 +94,12 @@ public class GamePage implements ActionListener {
 
         backgroundPanel.add(label, BorderLayout.NORTH);
         backgroundPanel.add(gridPanel, BorderLayout.CENTER);
-        backgroundPanel.add(revealButton, BorderLayout.SOUTH);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));  // Center the button
+        buttonPanel.setOpaque(false);
+        buttonPanel.add(revealButton);
+    
+        backgroundPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         frame.setContentPane(backgroundPanel);
 
