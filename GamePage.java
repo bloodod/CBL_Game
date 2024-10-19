@@ -62,6 +62,7 @@ public class GamePage implements ActionListener {
         revealButton.setForeground(Color.WHITE);
 
         gridPanel.setLayout(new GridLayout(SIZE, SIZE, 5, 5));
+        gridPanel.setOpaque(false);
         gridButtons = new JButton[SIZE][SIZE];
         hiddenNumbers = new Integer[SIZE][SIZE]; // Initialize the hidden number storage
 
@@ -114,6 +115,7 @@ public class GamePage implements ActionListener {
         if (e.getSource() == revealButton) {
             if (e.getSource() == revealButton) {
                 int randomNumber = random.nextInt(4) + 1;
+                // randomNumber = 1;
                 if (randomNumber == 1) {
                     triggerReshow();
                     revealButton.setEnabled(false);
@@ -256,6 +258,7 @@ public class GamePage implements ActionListener {
                     if (numbers.get(index) != null) {
                         gridButtons[i][j] = new JButton(String.valueOf(numbers.get(index)));
                         hiddenNumbers[i][j] = numbers.get(index); // Store the number for later comparison
+                        gridButtons[i][j].setFont(new Font("Comic Sans MS", Font.BOLD, 24));
                     } else {
                         gridButtons[i][j] = new JButton("");
                         hiddenNumbers[i][j] = null; // No number, so null
