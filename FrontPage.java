@@ -13,8 +13,8 @@ public class FrontPage implements ActionListener {
 
     FrontPage() {
         frame = new JFrame("Chimpanzee Remembers");
-        button1 = new JButton("Play");  // Initialize the button
-        button2 = new JButton("Tutorial");
+        button1 = new TransparentButton("Play", new Color(34, 139, 34));  // Initialize the button
+        button2 = new TransparentButton("Tutorial", new Color(34, 139, 34));
         title = new JLabel("Chimpanzee Game");
         backgroundPanel = new BackgroundPanel("resources/banana_background.jpeg");
         backgroundPanel.setLayout(null);
@@ -22,13 +22,20 @@ public class FrontPage implements ActionListener {
         button1.setBounds(300,150,200,40);
         button1.setFocusable(false);
         button1.addActionListener(this);
+        button1.setFont(new Font("Comic Sans MS", Font.BOLD, 18)); // Playful font
+        button1.setForeground(Color.WHITE); // White text
+
 
         button2.setBounds(300,300,200,40);
         button2.setFocusable(false);
         button2.addActionListener(this);
+        button2.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
+        button2.setForeground(Color.WHITE); // White text       
 
-        title.setBounds(300,50,400,40);
-        title.setFont(new Font(null,Font.PLAIN,25));
+        title.setBounds(280,50,400,40);
+        title.setFont(new Font("Comic Sans MS", Font.BOLD, 30)); // Bigger playful font
+        title.setForeground(new Color(101, 67, 33)); // Dark brown text
+
 
         backgroundPanel.add(button1);
         backgroundPanel.add(button2);
