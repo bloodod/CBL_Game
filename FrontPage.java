@@ -10,6 +10,7 @@ public class FrontPage implements ActionListener {
     JButton button2;
     JLabel title;
     BackgroundPanel backgroundPanel; 
+    MusicPlayer musicPlayer;
 
     FrontPage() {
         frame = new JFrame("Chimpanzee Remembers");
@@ -18,6 +19,9 @@ public class FrontPage implements ActionListener {
         title = new JLabel("Chimpanzee Game");
         backgroundPanel = new BackgroundPanel("resources/banana_background.jpeg");
         backgroundPanel.setLayout(null);
+        musicPlayer = new MusicPlayer("Moonlight_Sonata 1.wav");
+        musicPlayer.play();
+
 
         button1.setBounds(300,150,200,40);
         button1.setFocusable(false);
@@ -53,11 +57,15 @@ public class FrontPage implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == button1) {
+            musicPlayer.stop();
+            musicPlayer.close();
             frame.dispose();
             GamePage gamePage = new GamePage();
         }
 
         if(e.getSource() == button2){
+            musicPlayer.stop();
+            musicPlayer.close();
             frame.dispose();
             TutorialPage tutorialPage = new TutorialPage();
         }

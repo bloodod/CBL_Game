@@ -11,6 +11,7 @@ public class EndPage implements ActionListener {
     JLabel highscoreLabel;
     JLabel scoreLabel;
     GamePage gamePage;
+    MusicPlayer musicPlayer;
 
     static int highscore = 0;
     static final String HIGHSCORE_FILE = "highscore.txt";
@@ -29,6 +30,8 @@ public class EndPage implements ActionListener {
         buttonExit = new JButton("Exit");
         highscoreLabel = new JLabel("Highscore:  " + highscore);
         scoreLabel = new JLabel("Your score: " + (score) );
+        musicPlayer = new MusicPlayer("Moonlight_Sonata 2.wav");
+        musicPlayer.play();
 
         buttonPlayAgain.setBounds(300,200,200,40);
         buttonPlayAgain.setFocusable(false);
@@ -80,11 +83,15 @@ public class EndPage implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buttonPlayAgain) {
+            musicPlayer.stop();
+            musicPlayer.close();
             frame.dispose();
             GamePage gamePage = new GamePage();
         }
 
         if (e.getSource() == buttonExit) {
+            musicPlayer.stop();
+            musicPlayer.close();
             frame.dispose();
         }
     }
