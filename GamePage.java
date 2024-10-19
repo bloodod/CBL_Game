@@ -23,6 +23,7 @@ public class GamePage implements ActionListener {
     String buttonNumber;
     int clickedNumber;
     int roundCounter = 1; // Number of rounds
+    boolean[][] clickedButtons; //Tracking the clicked buttons
 
     Integer[][] hiddenNumbers; // Stores the numbers hidden from the player
     Timer timer; // Timer to hide the numbers
@@ -76,6 +77,8 @@ public class GamePage implements ActionListener {
         musicPlayer = new MusicPlayer("Moonlight_Sonata 3.wav");
         musicPlayer.play();
 
+        clickedButtons = new boolean[SIZE][SIZE];
+
         InitializeGrid();
 
         frame.setLayout(new BorderLayout());
@@ -114,6 +117,7 @@ public class GamePage implements ActionListener {
                             currentNumber++;
                             gridButtons[i][j].setDisabledIcon(greenIcon);
                             gridButtons[i][j].setEnabled(false); // Disable the button once clicked
+                            clickedButtons[i][j] = true; // Mark as clicked
 
                             // When all the buttons have been clicked in order
                             if (currentNumber > numberAmount) {
@@ -187,6 +191,13 @@ public class GamePage implements ActionListener {
 
     public void ResetForNextRound() {
         currentNumber = 1;
+
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                clickedButtons[i][j] = false; // Reset all buttons to "unclicked"
+            }
+        }
+        
         gridPanel.removeAll();
         InitializeGrid();
 
@@ -270,7 +281,9 @@ public class GamePage implements ActionListener {
         // Enable all buttons after 3 seconds
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                gridButtons[i][j].setEnabled(true); // Enable the button
+                if (!clickedButtons[i][j]) {
+                    gridButtons[i][j].setEnabled(true); // Enable the button
+                }
             }
         }
     }
@@ -279,7 +292,9 @@ public class GamePage implements ActionListener {
         int counter = 0;
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
+                if (!clickedButtons[i][j]) {
                 gridButtons[i][j].setIcon(imageList.get(counter));
+                }
                 counter++;
             }
         }
@@ -319,7 +334,9 @@ public class GamePage implements ActionListener {
         // Loop through the grid buttons
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                gridButtons[i][j].setIcon(null);
+                if (!clickedButtons[i][j]) {
+                    gridButtons[i][j].setIcon(null);
+                }
 
                 if (hiddenNumbers[i][j] != null) {
 
