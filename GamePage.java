@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.*;
 import java.io.File;
+import java.util.Random;
 
 public class GamePage implements ActionListener {
 
@@ -37,6 +38,8 @@ public class GamePage implements ActionListener {
 
     MusicPlayer musicPlayer;
 
+    Random random = new Random();
+
     GamePage() {
 
         frame = new JFrame("Game");
@@ -44,7 +47,7 @@ public class GamePage implements ActionListener {
         backgroundPanel = new BackgroundPanel("resources/banana_background.jpeg");
         backgroundPanel.setLayout(new BorderLayout());
 
-        revealButton = new JButton("Exit this Game");
+        revealButton = new JButton("Power-up gamble");
         gridPanel = new JPanel();
         label = new JLabel("Round: " + roundCounter);
 
@@ -102,11 +105,19 @@ public class GamePage implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == revealButton) {
-            // musicPlayer.stop();
-            // musicPlayer.close();
-            // frame.dispose();
-            // FrontPage frontPage = new FrontPage();
-            triggerReshow();;
+            if (e.getSource() == revealButton) {
+                int randomNumber = random.nextInt(4) + 1;
+                if (randomNumber == 1) {
+                    triggerReshow();
+                    revealButton.setEnabled(false);
+                } else {
+                    musicPlayer.stop();
+                    musicPlayer.close();
+                    frame.dispose(); 
+                    EndPage endPage = new EndPage(roundCounter - 1);
+                }
+            }
+
         }
 
         for (int i = 0; i < SIZE; i++) {
