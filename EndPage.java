@@ -78,7 +78,7 @@ public class EndPage implements ActionListener {
             }
         } catch (IOException e) {
             // File does not exist yet or an error occurred
-            System.out.println("No highscore file found. Starting fresh.");
+            System.out.println("No highscore file found");
         }
     }
 
