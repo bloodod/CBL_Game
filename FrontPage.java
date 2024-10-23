@@ -119,8 +119,6 @@ public class FrontPage implements ActionListener {
             musicPlayer.stop();
             musicPlayer.close();
             frame.dispose();
-    }
-
-    
+        }
     }
 }
