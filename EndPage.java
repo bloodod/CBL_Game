@@ -18,7 +18,9 @@ public class EndPage implements ActionListener {
     static int highscore = 0;
     static final String HIGHSCORE_FILE = "highscore.txt";
 
-    EndPage(int score) {
+    EndPage(int score, MusicPlayer musicPlayer) {
+
+        this.musicPlayer = musicPlayer;
 
         loadHighScore();
 
@@ -34,7 +36,11 @@ public class EndPage implements ActionListener {
         scoreLabel = new JLabel("Your score: " + (score) );
         backgroundPanel = new BackgroundPanel("resources/banana_background.jpeg");
         backgroundPanel.setLayout(null);
-        musicPlayer = new MusicPlayer("Moonlight_Sonata 2.wav");
+
+        musicPlayer.stop();
+        musicPlayer.close();
+        musicPlayer.setNewTrack("Moonlight_Sonata 2.wav");
+        musicPlayer.setVolume(MusicPlayer.getCurrentVolume());
         musicPlayer.play();
 
         buttonPlayAgain.setBounds(300,200,200,40);
@@ -97,7 +103,7 @@ public class EndPage implements ActionListener {
             musicPlayer.stop();
             musicPlayer.close();
             frame.dispose();
-            GamePage gamePage = new GamePage();
+            GamePage gamePage = new GamePage(musicPlayer);
         }
 
         if (e.getSource() == buttonExit) {

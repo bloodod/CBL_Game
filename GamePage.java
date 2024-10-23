@@ -89,7 +89,8 @@ public class GamePage implements ActionListener {
         }
 
         musicPlayer.stop();
-        musicPlayer = new MusicPlayer("Moonlight_Sonata 3.wav");
+        musicPlayer.close();
+        musicPlayer.setNewTrack("Moonlight_Sonata 3.wav");
         musicPlayer.setVolume(MusicPlayer.getCurrentVolume());
         musicPlayer.play();
 
@@ -124,10 +125,12 @@ public class GamePage implements ActionListener {
                     triggerReshow();
                     revealButton.setEnabled(false);
                 } else {
+                    System.out.println("Transitioning to EndPage... Stopping music.");
                     musicPlayer.stop();
                     musicPlayer.close();
+                    System.out.println("Transition complete. Moving to EndPage.");
                     frame.dispose(); 
-                    EndPage endPage = new EndPage(roundCounter - 1);
+                    EndPage endPage = new EndPage(roundCounter - 1, musicPlayer);
                 }
             }
 
@@ -181,10 +184,12 @@ public class GamePage implements ActionListener {
                                     delay = new Timer(1000, new ActionListener() { // 1000 ms = 1 second delay
                                         @Override
                                         public void actionPerformed(ActionEvent e) {
+                                            System.out.println("Transitioning to EndPage... Stopping music.");
                                             musicPlayer.stop();
                                             musicPlayer.close();
+                                            System.out.println("Transition complete. Moving to EndPage.");
                                             frame.dispose(); 
-                                            EndPage endPage = new EndPage(roundCounter - 1); //Change to end screen
+                                            EndPage endPage = new EndPage(roundCounter - 1, musicPlayer); //Change to end screen
                                         }
                                     });
                                     delay.setRepeats(false); // Only run once after the delay
@@ -204,10 +209,12 @@ public class GamePage implements ActionListener {
                                 delay = new Timer(1000, new ActionListener() { // 1000 ms = 1 second delay
                                     @Override
                                     public void actionPerformed(ActionEvent e) {
+                                        System.out.println("Transitioning to EndPage... Stopping music.");
                                         musicPlayer.stop();
                                         musicPlayer.close();
+                                        System.out.println("Transition complete. Moving to EndPage.");
                                         frame.dispose(); 
-                                        EndPage endPage = new EndPage(roundCounter - 1); //Change to end screen
+                                        EndPage endPage = new EndPage(roundCounter - 1, musicPlayer); //Change to end screen
                                     }
                                 });
                                 delay.setRepeats(false); // Only run once after the delay

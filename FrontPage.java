@@ -88,15 +88,15 @@ public class FrontPage implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == button1) {
-            // musicPlayer.stop();
-            // musicPlayer.close();
+            musicPlayer.stop();
+            musicPlayer.close();
             frame.dispose();
             GamePage gamePage = new GamePage(musicPlayer);
         }
 
         if(e.getSource() == button2){
             musicPlayer.stop();
-            // musicPlayer.close();
+            musicPlayer.close();
             frame.dispose();
             TutorialPage tutorialPage = new TutorialPage();
         }
