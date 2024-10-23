@@ -11,9 +11,11 @@ public class FrontPage implements ActionListener {
     JButton button2;
     JButton volumeButton;
     JSlider volumeSlider;
+    JLabel volumeLabel;
     JLabel title;
     BackgroundPanel backgroundPanel; 
     MusicPlayer musicPlayer;
+    ImageIcon soundIcon;
 
     FrontPage() {
         frame = new JFrame("Chimpanzee Remembers");
@@ -43,13 +45,28 @@ public class FrontPage implements ActionListener {
         title.setFont(new Font("Comic Sans MS", Font.BOLD, 30)); // Bigger playful font
         title.setForeground(new Color(101, 67, 33)); // Dark brown text
 
+        try {
+            ImageIcon icon = new ImageIcon("resources/sound_icon.png");
+            Image img = icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH); // Scale image
+            soundIcon = new ImageIcon(img); // Apply scaled image to icon
+        } catch (Exception e) {
+            System.out.println("Error loading image: " + e.getMessage());
+        }
         volumeButton = new JButton(new ImageIcon("resources/sound_icon.png"));
         volumeButton.setBounds(700, 500, 50, 50);
         volumeButton.addActionListener(this);
 
         volumeSlider = new JSlider(0, 100, 100);
         volumeSlider.setBounds(550, 500, 150, 50);
+        volumeSlider.setVisible(false);
         volumeSlider.addChangeListener(e -> adjustVolume(volumeSlider.getValue()));
+
+        volumeLabel = new JLabel("Volume: " + volumeSlider.getValue());
+        volumeLabel.setBounds(550, 475, 100, 30);
+        volumeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        // volumeLabel.setForeground(Color.WHITE);
+        volumeLabel.setVisible(false);
+        volumeSlider.addChangeListener(e -> volumeLabel.setText("Volume: " + volumeSlider.getValue()));
 
 
         backgroundPanel.add(button1);
@@ -57,6 +74,7 @@ public class FrontPage implements ActionListener {
         backgroundPanel.add(title);
         backgroundPanel.add(volumeButton);
         backgroundPanel.add(volumeSlider);
+        backgroundPanel.add(volumeLabel);
 
         frame.setContentPane(backgroundPanel);
 
@@ -86,6 +104,13 @@ public class FrontPage implements ActionListener {
             musicPlayer.close();
             frame.dispose();
             TutorialPage tutorialPage = new TutorialPage();
+        }
+
+        
+        if (e.getSource() == volumeButton) {
+            boolean isVisible = volumeSlider.isVisible();
+            volumeSlider.setVisible(!isVisible);
+            volumeLabel.setVisible(!isVisible);
         }
     }
 
