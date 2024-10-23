@@ -10,6 +10,7 @@ public class FrontPage implements ActionListener {
     JButton button1;
     JButton button2;
     JButton volumeButton;
+    JButton exitButton;
     JSlider volumeSlider;
     JLabel volumeLabel;
     JLabel title;
@@ -21,25 +22,30 @@ public class FrontPage implements ActionListener {
         frame = new JFrame("Chimpanzee Remembers");
         button1 = new TransparentButton("Play", new Color(34, 139, 34));  // Initialize the button
         button2 = new TransparentButton("Tutorial", new Color(34, 139, 34));
+        exitButton = new TransparentButton("Exit", new Color(34, 139, 34));
         title = new JLabel("Chimpanzee Game");
         backgroundPanel = new BackgroundPanel("resources/banana_background.jpeg");
         backgroundPanel.setLayout(null);
         musicPlayer = new MusicPlayer("Moonlight_Sonata 1.wav");
         musicPlayer.play();
 
-
-        button1.setBounds(300,150,200,40);
+        button1.setBounds(300,200,200,40);
         button1.setFocusable(false);
         button1.addActionListener(this);
         button1.setFont(new Font("Comic Sans MS", Font.BOLD, 18)); // Playful font
         button1.setForeground(Color.WHITE); // White text
 
-
         button2.setBounds(300,300,200,40);
         button2.setFocusable(false);
         button2.addActionListener(this);
         button2.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
-        button2.setForeground(Color.WHITE); // White text       
+        button2.setForeground(Color.WHITE); // White text      
+        
+        exitButton.setBounds(300,400,200,40);
+        exitButton.setFocusable(false);
+        exitButton.addActionListener(this);
+        exitButton.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
+        exitButton.setForeground(Color.WHITE); // White text  
 
         title.setBounds(275,50,400,40);
         title.setFont(new Font("Comic Sans MS", Font.BOLD, 30)); // Bigger playful font
@@ -75,6 +81,7 @@ public class FrontPage implements ActionListener {
         backgroundPanel.add(volumeButton);
         backgroundPanel.add(volumeSlider);
         backgroundPanel.add(volumeLabel);
+        backgroundPanel.add(exitButton);
 
         frame.setContentPane(backgroundPanel);
 
@@ -107,8 +114,13 @@ public class FrontPage implements ActionListener {
             volumeSlider.setVisible(!isVisible);
             volumeLabel.setVisible(!isVisible);
         }
+
+        if (e.getSource() == exitButton) {
+            musicPlayer.stop();
+            musicPlayer.close();
+            frame.dispose();
     }
 
     
-
+    }
 }

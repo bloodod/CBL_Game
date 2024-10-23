@@ -128,6 +128,8 @@ public class EndPage implements ActionListener {
             frame.dispose();
             FrontPage frontPage = new FrontPage();
         }
+
+        
     }
 
     
