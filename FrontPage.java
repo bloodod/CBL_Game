@@ -2,12 +2,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.sound.sampled.*;
 
 
 public class FrontPage implements ActionListener {
     JFrame frame;
     JButton button1;
     JButton button2;
+    JButton volumeButton;
+    JSlider volumeSlider;
     JLabel title;
     BackgroundPanel backgroundPanel; 
     MusicPlayer musicPlayer;
@@ -40,10 +43,20 @@ public class FrontPage implements ActionListener {
         title.setFont(new Font("Comic Sans MS", Font.BOLD, 30)); // Bigger playful font
         title.setForeground(new Color(101, 67, 33)); // Dark brown text
 
+        volumeButton = new JButton(new ImageIcon("resources/sound_icon.png"));
+        volumeButton.setBounds(700, 500, 50, 50);
+        volumeButton.addActionListener(this);
+
+        volumeSlider = new JSlider(0, 100, 100);
+        volumeSlider.setBounds(550, 500, 150, 50);
+        volumeSlider.addChangeListener(e -> adjustVolume(volumeSlider.getValue()));
+
 
         backgroundPanel.add(button1);
         backgroundPanel.add(button2);
         backgroundPanel.add(title);
+        backgroundPanel.add(volumeButton);
+        backgroundPanel.add(volumeSlider);
 
         frame.setContentPane(backgroundPanel);
 
@@ -52,6 +65,11 @@ public class FrontPage implements ActionListener {
         frame.setLayout(null);
         frame.setLocationRelativeTo(null);      //Set window to the middle of screen
         frame.setVisible(true);
+    }
+
+    private void adjustVolume(int volumeLevel) {
+        float volume = volumeLevel / 100f;
+        musicPlayer.setVolume(volume);
     }
 
     @Override

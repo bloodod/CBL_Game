@@ -5,6 +5,7 @@ import java.io.IOException;
 public class MusicPlayer {
 
     private Clip clip;
+    FloatControl volumeControl;
 
     public MusicPlayer(String fileName) {
         try {
@@ -14,6 +15,7 @@ public class MusicPlayer {
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
                 clip = AudioSystem.getClip();
                 clip.open(audioInput);
+                volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             } else {
                 System.out.println("Error: File not found - " + fileName);
             }
@@ -39,6 +41,13 @@ public class MusicPlayer {
         if (clip != null) {
             clip.close();
         }
+    }
+    
+    public void setVolume(float level) {
+        float min = volumeControl.getMinimum();
+        float max = volumeControl.getMaximum();
+        float volume = min + (max - min) * level;
+        volumeControl.setValue(volume); // Set volume
     }
     
 }
