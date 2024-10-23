@@ -52,7 +52,7 @@ public class FrontPage implements ActionListener {
         } catch (Exception e) {
             System.out.println("Error loading image: " + e.getMessage());
         }
-        volumeButton = new JButton(new ImageIcon("resources/sound_icon.png"));
+        volumeButton = new JButton(soundIcon);
         volumeButton.setBounds(700, 500, 50, 50);
         volumeButton.addActionListener(this);
 
