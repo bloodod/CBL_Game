@@ -8,6 +8,7 @@ public class EndPage implements ActionListener {
     JFrame frame;
     JButton buttonPlayAgain;
     JButton buttonExit;
+    JButton buttonMainMenu;
     JLabel highscoreLabel;
     JLabel scoreLabel;
     GamePage gamePage;
@@ -30,19 +31,27 @@ public class EndPage implements ActionListener {
         frame = new JFrame("End screen");
         buttonPlayAgain = new TransparentButton("Play again", new Color(34, 139, 34));
         buttonExit = new TransparentButton("Exit", new Color(34, 139, 34));
+        buttonMainMenu = new TransparentButton("Main Menu", new Color(34, 139, 34));
+
         highscoreLabel = new JLabel("Highscore:  " + highscore);
         scoreLabel = new JLabel("Your score: " + (score) );
         backgroundPanel = new BackgroundPanel("resources/banana_background.jpeg");
         backgroundPanel.setLayout(null);
         musicPlayer = new MusicPlayer("Moonlight_Sonata 2.wav");
         musicPlayer.play();
+        
 
         buttonPlayAgain.setBounds(300,200,200,40);
         buttonPlayAgain.setFocusable(false);
         buttonPlayAgain.addActionListener(this);
         buttonPlayAgain.setForeground(Color.WHITE);
 
-        buttonExit.setBounds(300,300,200,40);
+        buttonMainMenu.setBounds(300,300,200,40);
+        buttonMainMenu.setFocusable(false);
+        buttonMainMenu.addActionListener(this);
+        buttonMainMenu.setForeground(Color.WHITE);
+
+        buttonExit.setBounds(300,400,200,40);
         buttonExit.setFocusable(false);
         buttonExit.addActionListener(this);
         buttonExit.setForeground(Color.WHITE);
@@ -59,6 +68,7 @@ public class EndPage implements ActionListener {
         backgroundPanel.add(buttonExit);
         backgroundPanel.add(highscoreLabel);
         backgroundPanel.add(scoreLabel);
+        backgroundPanel.add(buttonMainMenu);
 
         frame.setContentPane(backgroundPanel);
 
@@ -105,5 +115,14 @@ public class EndPage implements ActionListener {
             musicPlayer.close();
             frame.dispose();
         }
+
+        if (e.getSource() == buttonMainMenu) {
+            musicPlayer.stop();
+            musicPlayer.close();
+            frame.dispose();
+            FrontPage frontPage = new FrontPage();
+        }
     }
+
+    
 }
