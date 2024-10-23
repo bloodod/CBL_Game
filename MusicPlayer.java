@@ -6,6 +6,7 @@ public class MusicPlayer {
 
     private Clip clip;
     FloatControl volumeControl;
+    private static float currentVolume = 1.0f;
 
     public MusicPlayer(String fileName) {
         try {
@@ -42,12 +43,24 @@ public class MusicPlayer {
             clip.close();
         }
     }
-    
-    public void setVolume(float level) {
-        float min = volumeControl.getMinimum();
-        float max = volumeControl.getMaximum();
-        float volume = min + (max - min) * level;
-        volumeControl.setValue(volume); // Set volume
+
+    public void setVolume(float volume) {
+        currentVolume = volume;
+        if(volumeControl != null) {
+            float min = volumeControl.getMinimum();
+            float max = volumeControl.getMaximum();
+            float dbVolume = min + (max - min) * (float) (Math.log10(volume * 9 + 1) / Math.log10(10));
+            volumeControl.setValue(dbVolume);
+        }
+    }
+
+    public void adjustVolume(int volumeLevel) {
+        float volume = volumeLevel / 100f;
+        setVolume(volume);
+    }
+
+    public static float getCurrentVolume() {
+        return currentVolume;
     }
     
 }

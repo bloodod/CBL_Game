@@ -56,15 +56,15 @@ public class FrontPage implements ActionListener {
         volumeButton.setBounds(700, 500, 50, 50);
         volumeButton.addActionListener(this);
 
-        volumeSlider = new JSlider(0, 100, 100);
+        int currentVolume = (int) (MusicPlayer.getCurrentVolume() * 100);
+        volumeSlider = new JSlider(0, 100, currentVolume);
         volumeSlider.setBounds(550, 500, 150, 50);
         volumeSlider.setVisible(false);
-        volumeSlider.addChangeListener(e -> adjustVolume(volumeSlider.getValue()));
+        volumeSlider.addChangeListener(e -> musicPlayer.adjustVolume(volumeSlider.getValue()));
 
         volumeLabel = new JLabel("Volume: " + volumeSlider.getValue());
         volumeLabel.setBounds(550, 475, 100, 30);
         volumeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        // volumeLabel.setForeground(Color.WHITE);
         volumeLabel.setVisible(false);
         volumeSlider.addChangeListener(e -> volumeLabel.setText("Volume: " + volumeSlider.getValue()));
 
@@ -85,23 +85,18 @@ public class FrontPage implements ActionListener {
         frame.setVisible(true);
     }
 
-    private void adjustVolume(int volumeLevel) {
-        float volume = volumeLevel / 100f;
-        musicPlayer.setVolume(volume);
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == button1) {
-            musicPlayer.stop();
-            musicPlayer.close();
+            // musicPlayer.stop();
+            // musicPlayer.close();
             frame.dispose();
-            GamePage gamePage = new GamePage();
+            GamePage gamePage = new GamePage(musicPlayer);
         }
 
         if(e.getSource() == button2){
             musicPlayer.stop();
-            musicPlayer.close();
+            // musicPlayer.close();
             frame.dispose();
             TutorialPage tutorialPage = new TutorialPage();
         }

@@ -40,7 +40,9 @@ public class GamePage implements ActionListener {
 
     Random random = new Random();
 
-    GamePage() {
+    GamePage(MusicPlayer musicPlayer) {
+
+        this.musicPlayer = musicPlayer;
 
         frame = new JFrame("Game");
 
@@ -86,7 +88,9 @@ public class GamePage implements ActionListener {
             System.out.println("red.png not found!");
         }
 
+        musicPlayer.stop();
         musicPlayer = new MusicPlayer("Moonlight_Sonata 3.wav");
+        musicPlayer.setVolume(MusicPlayer.getCurrentVolume());
         musicPlayer.play();
 
         clickedButtons = new boolean[SIZE][SIZE];
