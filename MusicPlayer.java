@@ -22,13 +22,11 @@ public class MusicPlayer {
                 clip.open(audioInput);
                 volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                 setVolume(currentVolume);
-                System.out.println("MusicPlayer initialized: " + fileName);
             } else {
                 System.out.println("Error: File not found - " + fileName);
             }
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
-            System.out.println("Error initializing MusicPlayer: " + e.getMessage());
         }
     }
 
@@ -36,26 +34,19 @@ public class MusicPlayer {
         if (clip != null) {
             clip.start();
             clip.loop(Clip.LOOP_CONTINUOUSLY);
-            System.out.println("Music started: " + clip.isRunning()); // Debugging
         }
     }
 
     public void stop() {
         if (clip != null && clip.isRunning()) {
             clip.stop();
-            System.out.println("Music stopped: " + !clip.isRunning()); // Debugging
-        } else {
-            System.out.println("Music was already stopped or clip is null."); // Debugging
-        }
+        } 
     }
 
     public void close() {
         if (clip != null) {
             clip.close();
             clip = null;
-            System.out.println("Music closed."); // Debugging
-        } else {
-            System.out.println("Clip was already null or not initialized."); // Debugging
         }
     }
 

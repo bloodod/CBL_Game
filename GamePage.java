@@ -125,10 +125,8 @@ public class GamePage implements ActionListener {
                     triggerReshow();
                     revealButton.setEnabled(false);
                 } else {
-                    System.out.println("Transitioning to EndPage... Stopping music.");
                     musicPlayer.stop();
                     musicPlayer.close();
-                    System.out.println("Transition complete. Moving to EndPage.");
                     frame.dispose(); 
                     EndPage endPage = new EndPage(roundCounter - 1, musicPlayer);
                 }
@@ -184,10 +182,8 @@ public class GamePage implements ActionListener {
                                     delay = new Timer(1000, new ActionListener() { // 1000 ms = 1 second delay
                                         @Override
                                         public void actionPerformed(ActionEvent e) {
-                                            System.out.println("Transitioning to EndPage... Stopping music.");
                                             musicPlayer.stop();
                                             musicPlayer.close();
-                                            System.out.println("Transition complete. Moving to EndPage.");
                                             frame.dispose(); 
                                             EndPage endPage = new EndPage(roundCounter - 1, musicPlayer); //Change to end screen
                                         }
@@ -209,10 +205,8 @@ public class GamePage implements ActionListener {
                                 delay = new Timer(1000, new ActionListener() { // 1000 ms = 1 second delay
                                     @Override
                                     public void actionPerformed(ActionEvent e) {
-                                        System.out.println("Transitioning to EndPage... Stopping music.");
                                         musicPlayer.stop();
                                         musicPlayer.close();
-                                        System.out.println("Transition complete. Moving to EndPage.");
                                         frame.dispose(); 
                                         EndPage endPage = new EndPage(roundCounter - 1, musicPlayer); //Change to end screen
                                     }
