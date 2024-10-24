@@ -25,6 +25,7 @@ public class TutorialPage implements ActionListener{
                 "Play like this chimpanzee. You have 3 seconds to see and remember the given numbers.<br>" +
                 "Now the sequence of numbers are hidden and you have to click the numbers in order.<br>" +
                 "After every round, a new number will be added to the sequence." +
+                "There is a 1/4 chance to reveal where the numbers are as a power-up." +
                 "</body></html>");
 
         title.setBounds(300,20,200,50);

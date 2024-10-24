@@ -141,6 +141,15 @@ public class GamePage implements ActionListener {
 
         }
 
+        // In case there are more numbers than there is space on the grid
+        if (numberAmount > SIZE * SIZE) {
+            //Change to end screen
+            musicPlayer.stop();
+            musicPlayer.close();
+            frame.dispose(); 
+            EndPage endPage = new EndPage(roundCounter - 1, musicPlayer);             
+        }
+
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
 
