@@ -5,6 +5,10 @@ import javax.swing.*;
 import java.io.*;
 
 public class EndPage implements ActionListener {
+
+    /**
+     * Initializing the GUI.
+     */
     JFrame frame;
     JButton buttonPlayAgain;
     JButton buttonExit;
@@ -15,7 +19,9 @@ public class EndPage implements ActionListener {
     MusicPlayer musicPlayer;
     BackgroundPanel backgroundPanel;
 
-
+    /**
+     * Variables for the highscore
+     */
     static int highscore = 0;
     static final String HIGHSCORE_FILE = "highscore.txt";
 
@@ -45,7 +51,7 @@ public class EndPage implements ActionListener {
         musicPlayer.setNewTrack("Moonlight_Sonata 2.wav");
         musicPlayer.setVolume(MusicPlayer.getCurrentVolume());
         musicPlayer.play();
-        
+
 
         buttonPlayAgain.setBounds(300,200,200,40);
         buttonPlayAgain.setFocusable(false);
@@ -81,7 +87,7 @@ public class EndPage implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800,600);
         frame.setLayout(null);
-        frame.setLocationRelativeTo(null);      //Set window to the middle of screen
+        frame.setLocationRelativeTo(null); // Set window to the middle of screen
         frame.setVisible(true);
     }
 
@@ -98,7 +104,9 @@ public class EndPage implements ActionListener {
         }
     }
 
-    // Save the high score to a file
+    /**
+     *  This function saves the high score to a file.
+     */
     private void saveHighScore() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(HIGHSCORE_FILE))) {
             writer.write(String.valueOf(highscore));
@@ -129,8 +137,8 @@ public class EndPage implements ActionListener {
             FrontPage frontPage = new FrontPage();
         }
 
-        
+
     }
 
-    
+
 }

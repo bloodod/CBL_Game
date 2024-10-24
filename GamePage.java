@@ -9,6 +9,9 @@ import java.util.Random;
 
 public class GamePage implements ActionListener {
 
+    /**
+     * Initializing the GUI.
+     */
     JFrame frame;
     JLabel label;
     JButton revealButton;
@@ -23,7 +26,7 @@ public class GamePage implements ActionListener {
 
     int currentNumber = 1; // To check the clicking order
     String buttonNumber;
-    int clickedNumber;
+    int clickedNumber; // To compare with the current number
     int roundCounter = 1; // Number of rounds
     boolean[][] clickedButtons; //Tracking the clicked buttons
 
@@ -31,6 +34,10 @@ public class GamePage implements ActionListener {
     Timer timer; // Timer to hide the numbers
     Timer delay; // For when the round is over
     ArrayList<ImageIcon> imageList; //Store 25 images
+   
+    /**
+     * Green and red images.
+     */
     File greenFile;
     File redFile;
     ImageIcon greenIcon;
@@ -69,7 +76,7 @@ public class GamePage implements ActionListener {
         hiddenNumbers = new Integer[SIZE][SIZE]; // Initialize the hidden number storage
 
         imageList = new ArrayList<>();
-        LoadImages();
+        loadImages();
 
         greenFile = new File("resources/green.png");
         redFile = new File("resources/red.png");
@@ -80,7 +87,7 @@ public class GamePage implements ActionListener {
         } else {
             System.out.println("green.png not found!");
         }
-        
+
         if (redFile.exists()) {
             redIcon = new ImageIcon(redFile.getAbsolutePath());
             System.out.println("Successfully loaded red.png");
@@ -157,13 +164,12 @@ public class GamePage implements ActionListener {
                                 SwingUtilities.invokeLater(new Runnable() {
                                     @Override
                                     public void run() {
-                                        // Create a Timer to introduce a delay before moving to the end page
-                                        delay = new Timer(200, new ActionListener() { // 1000 ms = 1 second delay
+                                        delay = new Timer(200, new ActionListener() {
                                             @Override
                                             public void actionPerformed(ActionEvent e) {
                                                 numberAmount++;
                                                 roundCounter++;
-                                                ResetForNextRound();
+                                                resetForNextRound();
                                             }
                                         });
                                         delay.setRepeats(false); // Only run once after the delay
@@ -178,14 +184,14 @@ public class GamePage implements ActionListener {
                             SwingUtilities.invokeLater(new Runnable() {
                                 @Override
                                 public void run() {
-                                    // Create a Timer to introduce a delay before moving to the end page
-                                    delay = new Timer(1000, new ActionListener() { // 1000 ms = 1 second delay
+                                    delay = new Timer(1000, new ActionListener() {
                                         @Override
                                         public void actionPerformed(ActionEvent e) {
+                                            //Change to end screen
                                             musicPlayer.stop();
                                             musicPlayer.close();
                                             frame.dispose(); 
-                                            EndPage endPage = new EndPage(roundCounter - 1, musicPlayer); //Change to end screen
+                                            EndPage endPage = new EndPage(roundCounter - 1, musicPlayer); 
                                         }
                                     });
                                     delay.setRepeats(false); // Only run once after the delay
@@ -201,14 +207,14 @@ public class GamePage implements ActionListener {
                         SwingUtilities.invokeLater(new Runnable() {
                             @Override
                             public void run() {
-                                // Create a Timer to introduce a delay before moving to the end page
-                                delay = new Timer(1000, new ActionListener() { // 1000 ms = 1 second delay
+                                delay = new Timer(1000, new ActionListener() {
                                     @Override
                                     public void actionPerformed(ActionEvent e) {
+                                         //Change to end screen
                                         musicPlayer.stop();
                                         musicPlayer.close();
                                         frame.dispose(); 
-                                        EndPage endPage = new EndPage(roundCounter - 1, musicPlayer); //Change to end screen
+                                        EndPage endPage = new EndPage(roundCounter - 1, musicPlayer);
                                     }
                                 });
                                 delay.setRepeats(false); // Only run once after the delay
@@ -221,7 +227,11 @@ public class GamePage implements ActionListener {
         }
     }
 
-    public void ResetForNextRound() {
+    /**
+     * This function resets the grid.
+     * The numbers will go into new random positions
+     */
+    public void resetForNextRound() {
         currentNumber = 1;
 
         for (int i = 0; i < SIZE; i++) {
@@ -238,6 +248,11 @@ public class GamePage implements ActionListener {
         gridPanel.repaint(); // Visual update
     }
 
+    /**
+     * This function creates the grid. 
+     * The numbers are put into random places by randomizing the
+     * array.
+     */
     public void InitializeGrid() {
         ArrayList<Integer> numbers = new ArrayList<>();
 
@@ -262,7 +277,8 @@ public class GamePage implements ActionListener {
                     // Set button text and store the number in hiddenNumbers array
                     if (numbers.get(index) != null) {
                         gridButtons[i][j] = new JButton(String.valueOf(numbers.get(index)));
-                        hiddenNumbers[i][j] = numbers.get(index); // Store the number for later comparison
+                         // Store the number for later comparison
+                        hiddenNumbers[i][j] = numbers.get(index);
                         gridButtons[i][j].setFont(new Font("Comic Sans MS", Font.BOLD, 24));
                     } else {
                         gridButtons[i][j] = new JButton("");
@@ -273,20 +289,24 @@ public class GamePage implements ActionListener {
                     gridButtons[i][j].setEnabled(false);
                     gridPanel.add(gridButtons[i][j]);
                     index++;
-                    
+
                 }
             }
         }
 
         gridPanel.setBounds(100, 150, 600, 300);
 
-        // Start the timer to hide the numbers after 5 seconds
+        // Start the timer to hide the numbers after 3 seconds
         startHideNumbersTimer();
 
     }
 
+    /**
+     * This function starts the timer of 3 seconds.
+     * After the 3 seconds the numbers get hidden
+     * and the button icons get changed
+     */
     private void startHideNumbersTimer() {
-        // Initialize the timer to hide numbers after 5 seconds
         timer = new Timer(maxTime, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -299,28 +319,67 @@ public class GamePage implements ActionListener {
         timer.start();
     }
 
+    /**
+     * This function hides the numbers when the 
+     * icon gets set.
+     */
     private void hideNumbers() {
-        // Hide all numbers by setting text to empty for each button
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 if (hiddenNumbers[i][j] != null) {
-                    gridButtons[i][j].setText(""); // Clear the text, but number is stored in hiddenNumbers
+                    gridButtons[i][j].setText(""); // Clearing the text
                 }
             }
         }
     }
 
+    /**
+     * This function enables the buttons after 
+     * a time delay. This is used after the delay
+     * of 3 seconds.
+     */
     private void enableButtons() {
-        // Enable all buttons after 3 seconds
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 if (!clickedButtons[i][j]) {
-                    gridButtons[i][j].setEnabled(true); // Enable the button
+                    gridButtons[i][j].setEnabled(true);
                 }
             }
         }
     }
 
+    /**
+     * This function loads the images that are
+     * on the buttons.
+     */
+    private void loadImages() {
+
+        // Topleft image is number 25
+        for (int i = SIZE * SIZE; i >= 1; i--) {
+            // Image file names like 25.png, 24.png, etc.
+            String imageName = i + ".png";
+
+            File imageFile = new File("resources/" + imageName);
+
+            if (!imageFile.exists()) {
+                System.out.println("Image not found: " + imageName);
+                continue; // Skip if the image is not found
+            }
+
+            // Load and resize the image
+            ImageIcon icon = new ImageIcon(imageFile.getAbsolutePath());
+            Image image = icon.getImage();
+            Image resizedImage = image.getScaledInstance(200, 100, Image.SCALE_SMOOTH);
+            ImageIcon resizedIcon = new ImageIcon(resizedImage);
+
+            imageList.add(resizedIcon);
+            System.out.println("Successfully loaded and resized: " + imageName);
+        }
+    }
+
+    /**
+     * This function sets the image of the buttons.
+     */
     private void changeToImage() {
         int counter = 0;
         for (int i = 0; i < SIZE; i++) {
@@ -333,36 +392,11 @@ public class GamePage implements ActionListener {
         }
     }
 
-    private void LoadImages() {
 
-        // Topleft image is number 25
-        for (int i = SIZE * SIZE; i >= 1; i--) {
-            // Image file names like 25.png, 24.png, etc.
-            String imageName = i + ".png";
-            
-            // Use relative file path for testing
-            File imageFile = new File("resources/" + imageName);
-            
-            if (!imageFile.exists()) {
-                System.out.println("Image not found: " + imageName);
-                continue; // Skip if the image is not found
-            }
-            
-            // Load and resize the image
-            ImageIcon icon = new ImageIcon(imageFile.getAbsolutePath()); // Load using absolute file path
-            Image image = icon.getImage();
-            Image resizedImage = image.getScaledInstance(200, 100, Image.SCALE_SMOOTH); // Resize
-            ImageIcon resizedIcon = new ImageIcon(resizedImage); // Convert back to ImageIcon
-            
-            imageList.add(resizedIcon);
-            System.out.println("Successfully loaded and resized: " + imageName);
-        }
-    }
-
-    public int getRoundCounter() {
-        return roundCounter;
-    }
-
+    /**
+     * Showing the numbers again after they've been hidden.
+     * This is used when the power-up works.
+     */
     public void reshowNumbers() {
         // Loop through the grid buttons
         for (int i = 0; i < SIZE; i++) {
@@ -384,11 +418,14 @@ public class GamePage implements ActionListener {
         }
     }
 
-
+    /**
+     * This function reshows the numbers first and
+     * then changes the buttons back into the images.
+     */
     public void triggerReshow() {
         reshowNumbers(); // Call the method to reshow the numbers
 
-        Timer timer = new Timer(3000, new ActionListener() {
+        Timer timer = new Timer(maxTime, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 hideNumbers();

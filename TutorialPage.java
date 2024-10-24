@@ -5,6 +5,9 @@ import javax.swing.*;
 
 public class TutorialPage implements ActionListener{
 
+    /**
+     * Initializing the GUI.
+     */
     JFrame frame;
     JLabel title;
     JButton backButton;
@@ -25,7 +28,7 @@ public class TutorialPage implements ActionListener{
                 "</body></html>");
 
         title.setBounds(300,20,200,50);
-        title.setFont(new Font("Comic Sans MS", Font.BOLD, 40)); // Playful font
+        title.setFont(new Font("Comic Sans MS", Font.BOLD, 40));
 
         backButton.setBounds(300,500,200,40);
         backButton.setFocusable(false);
@@ -35,9 +38,9 @@ public class TutorialPage implements ActionListener{
         gifLabel = new JLabel(monkeyGif);
         gifLabel.setBounds(300, 100, 200, 200); 
 
-        tutorialText.setBounds(100, 300, 600, 200);  // Adjust width and height as needed
-        tutorialText.setFont(new Font("Comic Sans MS", Font.PLAIN, 18)); // Set font for the paragraph
-        tutorialText.setForeground(Color.BLACK); // Set text color to white (or any color that contrasts with the background)
+        tutorialText.setBounds(100, 300, 600, 200);
+        tutorialText.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
+        tutorialText.setForeground(Color.BLACK);
 
         backgroundPanel = new BackgroundPanel("resources/banana_background.jpeg");
         backgroundPanel.setLayout(null);
@@ -54,10 +57,10 @@ public class TutorialPage implements ActionListener{
         frame.setContentPane(backgroundPanel);
 
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == backButton) {
+        if (e.getSource() == backButton) {
             frame.dispose();
             FrontPage frontPage = new FrontPage();
         }

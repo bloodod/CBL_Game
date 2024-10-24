@@ -2,10 +2,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import javax.sound.sampled.*;
+
 
 
 public class FrontPage implements ActionListener {
+
+    /**
+     * Initialzing the GUI.
+     */
     JFrame frame;
     JButton button1;
     JButton button2;
@@ -20,7 +24,7 @@ public class FrontPage implements ActionListener {
 
     FrontPage() {
         frame = new JFrame("Chimpanzee Remembers");
-        button1 = new TransparentButton("Play", new Color(34, 139, 34));  // Initialize the button
+        button1 = new TransparentButton("Play", new Color(34, 139, 34));
         button2 = new TransparentButton("Tutorial", new Color(34, 139, 34));
         exitButton = new TransparentButton("Exit", new Color(34, 139, 34));
         title = new JLabel("Chimpanzee Game");
@@ -39,21 +43,23 @@ public class FrontPage implements ActionListener {
         button2.setFocusable(false);
         button2.addActionListener(this);
         button2.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
-        button2.setForeground(Color.WHITE); // White text      
+        button2.setForeground(Color.WHITE);      
         
         exitButton.setBounds(300,400,200,40);
         exitButton.setFocusable(false);
         exitButton.addActionListener(this);
         exitButton.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
-        exitButton.setForeground(Color.WHITE); // White text  
+        exitButton.setForeground(Color.WHITE);  
 
         title.setBounds(275,50,400,40);
-        title.setFont(new Font("Comic Sans MS", Font.BOLD, 30)); // Bigger playful font
+        title.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
         title.setForeground(new Color(101, 67, 33)); // Dark brown text
 
         try {
             ImageIcon icon = new ImageIcon("resources/sound_icon.png");
-            Image img = icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH); // Scale image
+             
+            // Scale image
+            Image img = icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
             soundIcon = new ImageIcon(img); // Apply scaled image to icon
         } catch (Exception e) {
             System.out.println("Error loading image: " + e.getMessage());
@@ -88,27 +94,27 @@ public class FrontPage implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800,600);
         frame.setLayout(null);
-        frame.setLocationRelativeTo(null);      //Set window to the middle of screen
+        frame.setLocationRelativeTo(null); // Set window to the middle of screen
         frame.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == button1) {
+        if (e.getSource() == button1) {
             musicPlayer.stop();
             musicPlayer.close();
             frame.dispose();
             GamePage gamePage = new GamePage(musicPlayer);
         }
 
-        if(e.getSource() == button2){
+        if (e.getSource() == button2) {
             musicPlayer.stop();
             musicPlayer.close();
             frame.dispose();
             TutorialPage tutorialPage = new TutorialPage();
         }
 
-        
+
         if (e.getSource() == volumeButton) {
             boolean isVisible = volumeSlider.isVisible();
             volumeSlider.setVisible(!isVisible);

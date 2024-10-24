@@ -6,8 +6,14 @@ import javax.imageio.ImageIO;
 
 
 class BackgroundPanel extends JPanel {
+    
+     // Background image for the game
     private Image backgroundImage;
 
+    /**
+     * Setting the background image as the background
+     * @param imagePath
+     */
     public BackgroundPanel(String imagePath) {
         try {
             backgroundImage = ImageIO.read(new File(imagePath));
