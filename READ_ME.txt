@@ -1,10 +1,12 @@
 Chimpanzee Remembers
 27/10/2024
 
+Authors:
 Danilo Stessen (1708325)
 Ariq Rhamizah (1667319)
 
-Tutorial: The user will see numbers on the screen for 3 seconds. After 3 seconds the numbers disappear. 
+Tutorial: 
+The user will see numbers on the screen for 3 seconds. After 3 seconds the numbers disappear. 
 The user must then click the numbers in order from low to high. If the user correctly clicks the numbers in the correct order
 the user goes to the next round where an extra number is added. This continues until the user gets the order wrong or
 clicks the wrong position. There is also a powerup that is a gamble and either shows
@@ -17,8 +19,13 @@ Version control was implemented by using GitHub. In GitHub you create a reposito
 People can work on these files and then 'commit' their files to the repository. They then 'push' the commit to the origin remote.
 The other person can then 'fetch' the origin. The changes that were made are now adopted and thus easily shared. In GitHub you can 
 easily see the changes that you made and also the history of all the changes that were made. The repository had to be cloned first 
-from the online website before it could be used in the GitHub app. GitHub was used continuously throughout the project. The source was 
-found by searching for version control on google scholar.
+from the online website before it could be used in the GitHub app. GitHub was used continuously throughout the project.
+
+https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6188603
+This article talks about how Git works on an introductory level. Git manages revisions instead of versions. Locally, a complete
+version of your repository is stored. You could work and commit individual changes without requiring an internet connection.
+Then it can be pushed when you are online again. Due to the local staging it is possible to edit, reorder, and squash together the 
+past commits (also known as rebase).
 
 2) User experience (UX):
 https://pressbooks.pub/lidtfoundations/chapter/user-experience-design/
