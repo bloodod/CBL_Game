@@ -88,14 +88,14 @@ public class FrontPage implements ActionListener {
         backgroundPanel.add(volumeSlider);
         backgroundPanel.add(volumeLabel);
         backgroundPanel.add(exitButton);
-
+        
         frame.setContentPane(backgroundPanel);
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800,600);
         frame.setLayout(null);
         frame.setLocationRelativeTo(null); // Set window to the middle of screen
         frame.setVisible(true);
+        frame.setResizable(true);
     }
 
     @Override
@@ -126,5 +126,5 @@ public class FrontPage implements ActionListener {
             musicPlayer.close();
             frame.dispose();
         }
-    }
+    }   
 }
